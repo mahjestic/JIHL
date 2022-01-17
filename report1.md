@@ -34,17 +34,11 @@ repository for others to use.
 
 ## Technologies and Tools
 
-For this project, our team’s strategy for picking out the tools and technology to be used boiled
-down to useability, familiarity, and convenience. As a team, we all agreed on using Java to develop
-our program because we are all experienced with this programming language. We also believe that Java
-will be most flexible as project requirements and restrictions change. In terms of communication,
-our team has chosen Discord as the primary communication hub where we can share our thoughts and
-ideas, host meetings, and brainstorm collaboratively. Another tool we are using to edit and refine
-our thoughts is Google Docs. We mainly use Google Docs for the live editing option it provides.
-Sharing our ideas in real-time helps us work more effectively and efficiently as a team. Lastly, for
-version control, we are using Git and GitHub to share our code, documentation, and important files.
-Git/GitHub is a reliable tool that allows us to store our program and view our progress in a secure
-environment.
+Our strategy for picking out the tools and technology to be used boiled down to usability, familiarity, and convenience. As a team, we all agreed on using Java to develop our program because we are all experienced with this programming language. We also believe that Java will be most flexible as project requirements and restrictions change. 
+
+In terms of communication, our team has chosen Discord as the primary communication hub where we can share our thoughts and ideas, host meetings, and brainstorm collaboratively. Another tool we are using to edit and refine our thoughts is Google Docs. We mainly use Google Docs for the live editing option it provides. Sharing our ideas in real-time helps us work more effectively and efficiently as developers. 
+
+Lastly, for version control, we are using Git and GitHub to share our code, documentation, and important files. Git/GitHub is a reliable tool that allows us to store our program and view our progress in a secure environment.
 
 ## Needs From Client
 
