@@ -44,17 +44,17 @@ interactive prompt for the user to input files. Upon input, the application
 validates the file extension and content format to ensure security and parsing
 accuracy. If invalid, an error alert pop-up will be produced and the user will
 be prompted to reattempt. If valid, the CSV files will be scanned and mapped
-into a list of Students and a list of Courses, where the object fields are
-relative to the respective columns in each file being parsed.
+into a list of objects.Students and a list of objects.Courses, where the object
+fields are relative to the respective columns in each file being parsed.
 
-The list of Students will then be processed by a graduation priority algorithm.
-From there, the list will go through the primary matching algorithm. After
-multiple loops, the optimal schedule will be chosen, represented by lists of
-students and courses both successfully and unsuccessfully matched. These lists
-will be mapped to two CSV files with student and course data and assignments
-displayed in a similar format to those that were received. The CSV files will
-then be returned and displayed to the user in the pop-up window with the user
-capability to download and save them.
+The list of objects.Students will then be processed by a graduation priority
+algorithm. From there, the list will go through the primary matching algorithm.
+After multiple loops, the optimal schedule will be chosen, represented by lists
+of students and courses both successfully and unsuccessfully matched. These
+lists will be mapped to two CSV files with student and course data and
+assignments displayed in a similar format to those that were received. The CSV
+files will then be returned and displayed to the user in the pop-up window with
+the user capability to download and save them.
 
 ## Student-Course Algorithm Explanation
 
@@ -66,9 +66,9 @@ algorithm start, mapped to its respective member variable within the object.
 The first helper algorithm will calculate the time it takes for a student to
 graduate, which will be known as their graduation priority. This value is
 calculated with respect to the current date/quarter and the quarter/year the
-student is projected to graduate. The list of Students will then be sorted by
-graduation priority; lowest value (i.e. 0) being the highest priority and
-highest value being the lowest priority. This way, the students who graduate
+student is projected to graduate. The list of objects.Students will then be
+sorted by graduation priority; lowest value (i.e. 0) being the highest priority
+and highest value being the lowest priority. This way, the students who graduate
 sooner will be at the beginning of the list and therefore matched to classes
 sooner when scanning through the list to assign TAs. With the help of this
 algorithm, we can prioritize the matches by a student’s graduation time.
