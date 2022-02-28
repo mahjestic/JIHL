@@ -27,42 +27,72 @@ class Students {
         "Courses: " + "\n" + coursesTaken;
     }
     
-    // Method to get First Name
-    public String getFirstName(Students student, String[] column){
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the student's first name
+     */
+    public String addFirstName(Students student, String[] column){
         String name = column[0]; 
         
         return student.firstName = name;
     }
-   
-    // Method to get Name
-    public String getLastName(Students student, String[] column){
+    
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the student's last name
+     */
+    public String addLastName(Students student, String[] column){
         String name = column[1]; 
         
         return student.lastName = name;
     }
-
-    // Method to get ID
-    public int getID(Students student, String[] column){
+    
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the student's student ID
+     */
+    public int addID(Students student, String[] column){
         int ID = Integer.parseInt(column[2]);
         
         return student.id = ID;
     }
     
-    // Method to get Email
-    public String getEmail(Students student, String[] column){
+     /**
+     *
+     * @param student
+     * @param column
+     * @return the student's email
+     */
+    public String addEmail(Students student, String[] column){
         String email = column[3];
         
         return student.email = email;
     }
     
-    // Method to get Applied TA Course
-    public int getAppliedTACourse(Students student, String[] column){
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the student's applied TA course
+     */
+    public int addAppliedTACourse(Students student, String[] column){
         int taCourse = Integer.parseInt(column[6]);
         
         return student.taCourse = taCourse;
     }
    
-    // Method to get location/campus status
+    /**
+     *
+     * @param student
+     * @param column
+     * @return status of student's location (on campus, not on campus)
+     */
     public boolean isOnCampus(Students student, String[] column){
         String onCampus = column[7];
         
@@ -71,15 +101,26 @@ class Students {
         return student.onCampus = isOnCampus; 
     }
 
-    // Method to get python Knowledge
-    public boolean knowsPythong(Students student, String[] column){
+    /**
+     *
+     * @param student
+     * @param column
+     * @return whether the student knows python or not
+     */
+    public boolean knowsPython(Students student, String[] column){
         String python = column[40];
         
         boolean knowsPy = python.equalsIgnoreCase("yes");
 
         return student.python = knowsPy; 
     }
-    // Method to get VS Knowledge
+
+    /**
+     *
+     * @param student
+     * @param column
+     * @return whether the student knows VS Basics or not
+     */
     public boolean knowsVS(Students student, String[] column){
         String vsBasics = column[41];
         
@@ -88,8 +129,13 @@ class Students {
         return student.vsBasics = knowsVS; 
     }
 
-    // Method to get Schedule
-    public HashMap<String, HashMap<Integer,Boolean>> getSchedule(Students student, String[] column){
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the student's schedule
+     */
+    public HashMap<String, HashMap<Integer,Boolean>> addSchedule(Students student, String[] column){
         
         HashMap<String, HashMap<Integer, Boolean>> schedule = new HashMap<>();
                 
@@ -157,8 +203,13 @@ class Students {
         return student.schedule = schedule;
     }
 
-    // Method to get Courses Taken
-    public List<String> getCoursesTaken(Students student, String[] column){
+    /**
+     *
+     * @param student
+     * @param column
+     * @return the courses the student's have taken
+     */
+    public List<String> addCoursesTaken(Students student, String[] column){
         String[] courses = {"CS 102","CS 105","CS 107","CS 109","CS 110","CS 111","CS 112",
                                     "CS 301","CS 302","CS 311","CS 312","CS 361","CS 362","CS 380",
                                     "CS 420","CS 427","CS 430","CS 440","CS 467","CS 470", "CS 480"};
@@ -173,4 +224,5 @@ class Students {
         }
         return student.coursesTaken = coursesTaken;
     }
+
 }

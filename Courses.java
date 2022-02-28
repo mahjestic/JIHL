@@ -22,41 +22,67 @@ class Courses {
                ", Professor: " + professor + ", Campus: " + campus + ", Facility ID: " + facilityID + 
                "\n" + "Days: " + days + ", Start Time: " + startTime + ", End Time: " + endTime;
     }
-    // Method to get Sub
-    public String getSub(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the sub of the course
+     */
+    public String addSub(Courses course, String[] column){
         
         String sub = column[0];
         
         return course.sub = sub;
     }
 
-    // Method to get Code
-    public int getCode(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the code of the course 
+     */
+    public int addCode(Courses course, String[] column){
         
         String code = column[1];
 
         return course.code = Integer.parseInt(code);
     }
     
-    // Method to get Section
-    public String getSection(Courses course, String[] column){
+     /**
+     *
+     * @param course
+     * @param column
+     * @return the section of the course
+     */
+    public String addSection(Courses course, String[] column){
         
         String section = column[2];
         
         return course.section = section;
     }
     
-    // Method to get Title
-    public String getTitle(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the title of the course 
+     */
+    public String addTitle(Courses course, String[] column){
         
         String title = column[3];
         
         return course.title = title;
     }
-    // Method to get Level
-    public String getLevel(Courses course, String[] column){
+
+     /**
+     *
+     * @param course
+     * @param column
+     * @return the TA level of the course
+     */
+    public String addLevel(Courses course, String[] column){
         
-        int code = course.getCode(course,column);
+        int code = course.addCode(course,column);
         String level = "";
 
         if(code < 300){ level = "392"; }
@@ -68,8 +94,13 @@ class Courses {
         return course.level = level;
     }
     
-    // Method to get Facility ID
-    public String getFacilID(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the facility ID of the course 
+     */
+    public String addFacilID(Courses course, String[] column){
         String ID;
 
         if(column[9] == ""){ ID = "TBD"; }
@@ -78,8 +109,13 @@ class Courses {
         
         return course.facilityID = ID;
     }
-    // Method to get Campus
-    public String getCampus(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return whether the course is on campus or not
+     */
+    public String addCampus(Courses course, String[] column){
         String campus;
 
         campus = column[column.length - 1];
@@ -87,8 +123,13 @@ class Courses {
         return course.campus = campus;
     }
 
-    // Method to get Professor
-    public String getProfessor(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the professor of the course 
+     */
+    public String addProfessor(Courses course, String[] column){
 
         String professor;
         String firstName = column[4];
@@ -104,13 +145,18 @@ class Courses {
         return course.professor = professor;
     }
 
-    // Method to get Days
-    public List<String> getDays(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the days the course will take place
+     */
+    public List<String> addDays(Courses course, String[] column){
         
         List<String> days = new ArrayList<String>();
         
-        String professor = course.getProfessor(course, column);
-        String campus = course.getCampus(course, column);
+        String professor = course.addProfessor(course, column);
+        String campus = course.addCampus(course, column);
 
         //If professor is undefined
         if(professor.equals("TBD")){ 
@@ -152,10 +198,15 @@ class Courses {
         }
         return course.days = days;
     }
-    // Method to get Start Time
-    public int getStartTime(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the starting time of the course 
+     */
+    public int addStartTime(Courses course, String[] column){
 
-        String professor = course.getProfessor(course, column);
+        String professor = course.addProfessor(course, column);
         int startTime = 0;
 
         // If professor column is empty
@@ -243,10 +294,15 @@ class Courses {
         return course.startTime = startTime;
     }
 
-    // Method to get End Time
-    public int getEndTime(Courses course, String[] column){
+    /**
+     *
+     * @param course
+     * @param column
+     * @return the end time of the course 
+     */
+    public int addEndTime(Courses course, String[] column){
 
-        String professor = course.getProfessor(course, column);
+        String professor = course.addProfessor(course, column);
         int endTime = 0;
 
         // If professor column is empty
