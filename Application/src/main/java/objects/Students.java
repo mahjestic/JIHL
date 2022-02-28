@@ -17,6 +17,23 @@ public class Students {
   HashMap<String, HashMap<Integer, Boolean>> schedule;
   List<String> coursesTaken;
 
+  public Student(String firstName, String lastName, int id, String email, int taCourse,
+      boolean onCampus, boolean python, boolean vsBasics,
+      HashMap<String, HashMap<Integer, Boolean>> schedule,
+      List<String> coursesTaken) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.id = id;
+    this.email = email;
+    this.taCourse = taCourse;
+    this.onCampus = onCampus;
+    this.python = python;
+    this.vsBasics = vsBasics;
+    this.schedule = schedule;
+    this.coursesTaken = coursesTaken;
+
+  }
+
   @Override
   public String toString() {
     return "\n" + "First Name: " + firstName + ", Last Name: " + lastName + ", ID: " + id

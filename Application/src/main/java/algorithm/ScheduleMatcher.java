@@ -1,6 +1,4 @@
-import java.util.*;
-import java.lang.*;
-import java.io.*;
+package algorithm;
 
 public class ScheduleMatcher {
 
@@ -11,7 +9,7 @@ public class ScheduleMatcher {
 
   // A DFS based recursive function that returns true if a matching
   // for vertex u is possible
-  boolean bpm(boolean bpGraph[][], int u, boolean seen[], int matchR[]) {
+  public boolean bpm(boolean bpGraph[][], int u, boolean seen[], int matchR[]) {
 
     // Try every job one by one
     for (int v = 0; v < N; v++) {
