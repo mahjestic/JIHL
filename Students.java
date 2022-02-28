@@ -7,7 +7,7 @@ class Students {
     int id;
     String email;
     int taCourse;
-    boolean inPerson;
+    boolean onCampus;
     boolean python;
     boolean vsBasics;
     HashMap<String, HashMap<Integer, Boolean>> schedule;
@@ -15,8 +15,15 @@ class Students {
 
     @Override
     public String toString() {
-        return "First Name: " + name + ", Last Name: " + lastName + ", ID: " + id + ", Email: " + email + 
-        ", TA Course: " + taCourse + ", In Person?: " + inPerson + " Python?: " + python + 
-        ", VS Basics?: " + vsBasics + "\n";
+        return "\n" + "First Name: " + name + ", Last Name: " + lastName + ", ID: " + id + ", Email: " + email + 
+        ", TA Course: " + taCourse + ", In Person?: " + onCampus + " Python?: " + python + 
+        ", VS Basics?: " + vsBasics +"\n" + 
+        "Schedule: " + "\n" + 
+        "    Monday: " + schedule.get("M") + "\n" +
+        "    Tuesday: " + schedule.get("T") +  "\n" +
+        "    Wednesday: " + schedule.get("W") +  "\n" +
+        "    Thursday: " + schedule.get("TH") + "\n" + 
+        "Courses: " + "\n" + coursesTaken;
+
     }
 }
