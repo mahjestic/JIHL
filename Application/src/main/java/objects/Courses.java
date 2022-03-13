@@ -2,22 +2,27 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 public class Courses {
 
-  String sub;
-  int code;
-  String section;
-  String title;
-  String professor;
-  String level;
-  int seatsAvailable;
-  List<String> TAs;
-  List<String> days;
-  int startTime;
-  int endTime;
-  String facilityID;
-  String campus;
+  private static final Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+  private String sub;
+  private int code;
+  private String section;
+  private String title;
+  private String professor;
+  private String level;
+  private int seatsAvailable;
+  private List<String> TAs;
+  private List<String> days;
+  private int startTime;
+  private int endTime;
+  private String facilityID;
+  private String campus;
+  private String professorLastFirst;
 
   public Courses() {
   }
@@ -44,9 +49,11 @@ public class Courses {
 
   @Override
   public String toString() {
-    return "\n" + "Level: " + level + ", Course: " + (sub + " " + code) + ", Secton: " + section
-        + ", Title: " + title +
-        ", Professor: " + professor + ", Campus: " + campus + ", Facility ID: " + facilityID +
+    return "\n" +
+        "Level: " + level + ", Course: " + (sub + " " + code) + ", Secton: " + section + ", Title: "
+        + title +
+        "\nProfessor: " + professorLastFirst + ", Campus: "
+        + campus + ", Facility ID: " + facilityID +
         "\n" + "Days: " + days + ", Start Time: " + startTime + ", End Time: " + endTime;
   }
 
@@ -165,6 +172,7 @@ public class Courses {
     } else {
       lastName = column[5];
       professor = firstName + " " + lastName;
+      this.professorLastFirst = lastName + "," + firstName;
     }
 
     return course.professor = professor;
@@ -443,6 +451,14 @@ public class Courses {
 
   public String getProfessor() {
     return professor;
+  }
+
+  public String getProfessorLastFirst() {
+    if (Objects.isNull(professorLastFirst)) {
+      return professor;
+    } else {
+      return professorLastFirst;
+    }
   }
 
   public String getLevel() {

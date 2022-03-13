@@ -8,13 +8,13 @@ public class Main {
       }
     });
 
-//    MockObjectGenerator generator = new MockObjectGenerator();
+//    utils.MockObjectGenerator generator = new utils.MockObjectGenerator();
 //
 //    List<Students> studs = generator.createMockStudents(50);
-////    studs.forEach(student -> {
-////      System.out.println(student.toString());
-////    });
-//
+//    studs.forEach(student -> {
+//      System.out.println(student.toString());
+//    });
+
 //    List<Courses> courses = generator.createMockCourses(
 //        generator.numTotalCourses);
 ////    courses.forEach(course -> {

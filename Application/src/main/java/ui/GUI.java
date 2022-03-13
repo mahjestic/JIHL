@@ -5,6 +5,7 @@
 package ui;
 
 import java.io.File;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import parser.Parse;
@@ -15,6 +16,7 @@ import parser.Parse;
  */
 public class GUI extends javax.swing.JFrame {
 
+  private static final Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
   private final JFileChooser selectFileChooser;
   public File fileToRead;
   public File fileToRead2;
@@ -30,6 +32,14 @@ public class GUI extends javax.swing.JFrame {
     selectFileChooser = new JFileChooser();
     selectFileChooser.setCurrentDirectory(new File("c:\\"));
     selectFileChooser.setFileFilter(new FileNameExtensionFilter("CSV, Files", "csv"));
+  }
+
+
+  private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    // TODO add your handling code here:
+    log.info("Booting up Application...");
+    Parse parser = new Parse(studentCSV, scheduleCSV);
+    parser.parseFiles();
   }
 
   /**
@@ -177,11 +187,6 @@ public class GUI extends javax.swing.JFrame {
     }
   }
 
-  private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    Parse parser = new Parse(studentCSV, scheduleCSV);
-    parser.parseFiles();
-  }
 
   private void selectFileButton1ActionPerformed(java.awt.event.ActionEvent evt) {
     int returnValue = selectFileChooser.showOpenDialog(this);
@@ -195,45 +200,45 @@ public class GUI extends javax.swing.JFrame {
     }
   }
 
-  /**
-   * @param args the command line arguments
-   */
-  public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-     */
-    try {
-      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-          .getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          javax.swing.UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(GUI.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(GUI.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(GUI.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(GUI.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
-
-    /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new GUI().setVisible(true);
-//            }
-//        });
-  }
+//  /**
+//   * @param args the command line arguments
+//   */
+//  public static void main(String args[]) {
+//    /* Set the Nimbus look and feel */
+//    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//     */
+//    try {
+//      for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
+//          .getInstalledLookAndFeels()) {
+//        if ("Nimbus".equals(info.getName())) {
+//          javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//          break;
+//        }
+//      }
+//    } catch (ClassNotFoundException ex) {
+//      java.util.logging.Logger.getLogger(GUI.class.getName())
+//          .log(java.util.logging.Level.SEVERE, null, ex);
+//    } catch (InstantiationException ex) {
+//      java.util.logging.Logger.getLogger(GUI.class.getName())
+//          .log(java.util.logging.Level.SEVERE, null, ex);
+//    } catch (IllegalAccessException ex) {
+//      java.util.logging.Logger.getLogger(GUI.class.getName())
+//          .log(java.util.logging.Level.SEVERE, null, ex);
+//    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//      java.util.logging.Logger.getLogger(GUI.class.getName())
+//          .log(java.util.logging.Level.SEVERE, null, ex);
+//    }
+//    //</editor-fold>
+//
+//    /* Create and display the form */
+////        java.awt.EventQueue.invokeLater(new Runnable() {
+////            public void run() {
+////                new GUI().setVisible(true);
+////            }
+////        });
+//  }
 
   // Variables declaration - do not modify
   private javax.swing.JLabel instructionLabel1;

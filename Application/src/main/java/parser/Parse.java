@@ -5,11 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.logging.Logger;
 import objects.Courses;
 import objects.Students;
 
 public class Parse {
 
+  private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
   public static String studentCSV;
   public static String scheduleCSV;
 
@@ -18,9 +21,27 @@ public class Parse {
     this.scheduleCSV = scheduleCSV;
   }
 
+  public Parse() {
+  }
+
+  ;
+
+  public Parse(String csvString, Boolean isStudentCSV) {
+    if (isStudentCSV) {
+      studentCSV = csvString;
+    } else {
+      scheduleCSV = csvString;
+    }
+  }
+
   public void parseFiles() {
-    scheduleFileParser(scheduleCSV); // Run this for the schedule file
-    studentFileParser(studentCSV); // Run this for the student file
+    if (!studentCSV.equals("") && Objects.nonNull(studentCSV)) {
+      studentFileParser(studentCSV); // Run this for the student file
+
+    }
+    if (!scheduleCSV.equals("") && Objects.nonNull(scheduleCSV)) {
+      scheduleFileParser(scheduleCSV); // Run this for the schedule file
+    }
   }
 
   // Schedule File Parser Method
@@ -37,9 +58,9 @@ public class Parse {
       lineRead.readLine();//first line
 
       while ((input = lineRead.readLine()) != null) {
-
         String[] column = input.split(",");
 
+        System.out.println(input);
         // --Sub--
         data.addSub(data, column);
 
@@ -76,8 +97,8 @@ public class Parse {
         ArrayList<Courses> coursesData = new ArrayList<Courses>();
 
         coursesData.add(data); //Adds Schedule data to courseData arrayList
+        //***** log.info(coursesData.toString());   // Logs info when method is called
 
-        System.out.println(coursesData); //Prints out data when method is called
       }
 
     } catch (FileNotFoundException e) {
@@ -113,6 +134,8 @@ public class Parse {
       lineRead.readLine(); // Skip second line
 
       while ((input = lineRead.readLine()) != null) {
+
+        //log.info(input);
         String[] column = input.split(",");
         int length = column.length;
 
@@ -123,6 +146,10 @@ public class Parse {
         // -- Information --
         data.addID(data, column);
         data.addEmail(data, column);
+
+        // -- Expected Graduation --
+        data.addGradQuarter(data, column);
+        data.addGradYear(data, column);
 
         // -- Applied TA course --
         data.addAppliedTACourse(data, column);
@@ -141,11 +168,10 @@ public class Parse {
 
         // -- objects.Courses Taken --
         data.addCoursesTaken(data, column);
-
         ArrayList<Students> studentData = new ArrayList<Students>();
 
         studentData.add(data); // Adds student data to studentData ArrayList
-        System.out.println(studentData); // Prints out data when method is called
+        //***** log.info(studentData.toString());   // Logs info when method is called
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();

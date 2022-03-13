@@ -3,31 +3,38 @@ package objects;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Students {
 
-  String firstName;
-  String lastName;
-  int id;
-  String email;
-  int taCourse;
-  boolean onCampus;
-  boolean python;
-  boolean vsBasics;
-  HashMap<String, HashMap<Integer, Boolean>> schedule;
-  List<String> coursesTaken;
+  private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+
+  private String firstName;
+  private String lastName;
+  private int id;
+  private String email;
+  private String gradQuarter;
+  private String gradYear;
+  private int taCourse;
+  private boolean onCampus;
+  private boolean python;
+  private boolean vsBasics;
+  private HashMap<String, HashMap<Integer, Boolean>> schedule;
+  private List<String> coursesTaken;
 
   public Students() {
   }
 
-  public Students(String firstName, String lastName, int id, String email, int taCourse,
-      boolean onCampus, boolean python, boolean vsBasics,
+  public Students(String firstName, String lastName, int id, String email, String gradQuarter,
+      String gradYear, int taCourse, boolean onCampus, boolean python, boolean vsBasics,
       HashMap<String, HashMap<Integer, Boolean>> schedule,
       List<String> coursesTaken) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.id = id;
     this.email = email;
+    this.gradQuarter = gradQuarter;
+    this.gradYear = gradYear;
     this.taCourse = taCourse;
     this.onCampus = onCampus;
     this.python = python;
@@ -41,6 +48,7 @@ public class Students {
   public String toString() {
     return "\n" + "First Name: " + firstName + ", Last Name: " + lastName + ", ID: " + id
         + ", Email: " + email + "\n" +
+        "Graduating Quarter: " + gradQuarter + ", Year: " + gradYear + "\n" +
         "TA Course: " + taCourse + ", In Person: " + onCampus + ", Python: " + python +
         ", VS Basics?: " + vsBasics + "\n" +
         "Schedule: " + "\n" +
@@ -93,6 +101,28 @@ public class Students {
     String email = column[3];
 
     return student.email = email;
+  }
+
+  /**
+   * @param student
+   * @param column
+   * @return the student's graduating quarter
+   */
+  public String addGradQuarter(Students student, String[] column) {
+    String gradQuarter = column[4];
+
+    return student.gradQuarter = gradQuarter;
+  }
+
+  /**
+   * @param student
+   * @param column
+   * @return the student's graduating year
+   */
+  public String addGradYear(Students student, String[] column) {
+    String gradYear = column[5];
+
+    return student.gradYear = gradYear;
   }
 
   /**
@@ -274,6 +304,14 @@ public class Students {
 
   public String getEmail() {
     return email;
+  }
+
+  public String getGradQuarter() {
+    return gradQuarter;
+  }
+
+  public String getGradYear() {
+    return gradYear;
   }
 
   public int getTaCourse() {
