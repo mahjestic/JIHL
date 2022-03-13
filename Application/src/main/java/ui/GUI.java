@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package ui;
 
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import parser.Parse;
+
 
 /**
  * @author Owner
@@ -177,6 +179,8 @@ public class GUI extends javax.swing.JFrame {
 
   private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
+    Parse parser = new Parse(studentCSV, scheduleCSV);
+    parser.parseFiles();
   }
 
   private void selectFileButton1ActionPerformed(java.awt.event.ActionEvent evt) {

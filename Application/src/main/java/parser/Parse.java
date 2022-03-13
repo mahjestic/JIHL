@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import objects.Courses;
 import objects.Students;
 
-public class parse {
+public class Parse {
 
-  public static void main(String[] args) {
-    //File path's
-    String studentCSV = "/Users/lenale/Desktop/cs480/students.csv"; //change the file paths to match
-    String scheduleCSV = "/Users/lenale/Desktop/cs480/schedule.csv";
+  public static String studentCSV;
+  public static String scheduleCSV;
 
-    // scheduleFileParser(scheduleCSV); // Run this for the schedule file
+  public Parse(String studentCSV, String scheduleCSV) {
+    this.studentCSV = studentCSV;
+    this.scheduleCSV = scheduleCSV;
+  }
+
+  public void parseFiles() {
+    scheduleFileParser(scheduleCSV); // Run this for the schedule file
     studentFileParser(studentCSV); // Run this for the student file
   }
 
   // Schedule File Parser Method
-  public static Courses scheduleFileParser(String file) {
+  public Courses scheduleFileParser(String file) {
     BufferedReader lineRead = null;
 
     String input = "";
@@ -36,38 +40,38 @@ public class parse {
 
         String[] column = input.split(",");
 
-        --Sub--
-        data.getSub(data, column);
+        // --Sub--
+        data.addSub(data, column);
 
         // -- Cat --
-        data.getCode(data, column);
+        data.addCode(data, column);
 
-        //        // -- Section --
-        data.getSection(data, column);
+        // -- Section --
+        data.addSection(data, column);
 
         // -- Title --
-        data.getTitle(data, column);
+        data.addTitle(data, column);
 
         // -- Level --
-        data.getLevel(data, column);
+        data.addLevel(data, column);
 
         // -- Facility ID --
-        data.getFacilID(data, column);
+        data.addFacilID(data, column);
 
         // -- Campus --
-        data.getCampus(data, column);
+        data.addCampus(data, column);
 
         // -- Professor --
-        data.getProfessor(data, column);
+        data.addProfessor(data, column);
 
         // -- Days --
-        data.getDays(data, column);
+        data.addDays(data, column);
 
         // -- Start Time --
-        data.getStartTime(data, column);
+        data.addStartTime(data, column);
 
         // -- End Time --
-        data.getEndTime(data, column);
+        data.addEndTime(data, column);
 
         ArrayList<Courses> coursesData = new ArrayList<Courses>();
 
@@ -95,12 +99,12 @@ public class parse {
   }
 
   //Student File Parser Method
-  public static Students studentFileParser(String file) {
+  public Students studentFileParser(String file) {
     BufferedReader lineRead = null;
 
     String input = "";
 
-    //Students data = new Students();
+    Students data = new Students();
 
     try {
 
@@ -113,30 +117,30 @@ public class parse {
         int length = column.length;
 
         // -- Name --
-        data.getFirstName(data, column);
-        data.getLastName(data, column);
+        data.addFirstName(data, column);
+        data.addLastName(data, column);
 
         // -- Information --
-        data.getID(data, column);
-        data.getEmail(data, column);
+        data.addID(data, column);
+        data.addEmail(data, column);
 
         // -- Applied TA course --
-        data.getAppliedTACourse(data, column);
+        data.addAppliedTACourse(data, column);
 
         // -- Are they on campus? --
         data.isOnCampus(data, column);
 
         // -- Do they know python? --
-        data.knowsPythong(data, column);
+        data.knowsPython(data, column);
 
         // -- Do they know VS Basics? --
         data.knowsVS(data, column);
 
         // -- Schdeule --
-        data.getSchedule(data, column);
+        data.addSchedule(data, column);
 
         // -- objects.Courses Taken --
-        data.getCoursesTaken(data, column);
+        data.addCoursesTaken(data, column);
 
         ArrayList<Students> studentData = new ArrayList<Students>();
 

@@ -19,6 +19,9 @@ public class Courses {
   String facilityID;
   String campus;
 
+  public Courses() {
+  }
+
   public Courses(String sub, int code, String section, String title, String professor, String level,
       int seatsAvailable, List<String> TAs, List<String> days, int startTime, int endTime,
       String facilityID, String campus) {

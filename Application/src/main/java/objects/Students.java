@@ -17,6 +17,9 @@ public class Students {
   HashMap<String, HashMap<Integer, Boolean>> schedule;
   List<String> coursesTaken;
 
+  public Students() {
+  }
+
   public Students(String firstName, String lastName, int id, String email, int taCourse,
       boolean onCampus, boolean python, boolean vsBasics,
       HashMap<String, HashMap<Integer, Boolean>> schedule,
