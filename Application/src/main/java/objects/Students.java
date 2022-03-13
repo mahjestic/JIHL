@@ -17,7 +17,7 @@ public class Students {
   HashMap<String, HashMap<Integer, Boolean>> schedule;
   List<String> coursesTaken;
 
-  public Student(String firstName, String lastName, int id, String email, int taCourse,
+  public Students(String firstName, String lastName, int id, String email, int taCourse,
       boolean onCampus, boolean python, boolean vsBasics,
       HashMap<String, HashMap<Integer, Boolean>> schedule,
       List<String> coursesTaken) {
@@ -257,4 +257,43 @@ public class Students {
     return student.coursesTaken = coursesTaken;
   }
 
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public int getTaCourse() {
+    return taCourse;
+  }
+
+  public boolean isOnCampus() {
+    return onCampus;
+  }
+
+  public boolean isPython() {
+    return python;
+  }
+
+  public boolean isVsBasics() {
+    return vsBasics;
+  }
+
+  public HashMap<String, HashMap<Integer, Boolean>> getSchedule() {
+    return schedule;
+  }
+
+  public List<String> getCoursesTaken() {
+    return coursesTaken;
+  }
 }

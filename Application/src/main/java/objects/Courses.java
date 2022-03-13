@@ -19,6 +19,26 @@ public class Courses {
   String facilityID;
   String campus;
 
+  public Courses(String sub, int code, String section, String title, String professor, String level,
+      int seatsAvailable, List<String> TAs, List<String> days, int startTime, int endTime,
+      String facilityID, String campus) {
+    this.sub = sub;
+    this.code = code;
+    this.section = section;
+    this.title = title;
+    this.professor = professor;
+    this.level = level;
+    this.seatsAvailable = seatsAvailable;
+    this.TAs = TAs;
+    this.days = days;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.facilityID = facilityID;
+    this.campus = campus;
+
+
+  }
+
   @Override
   public String toString() {
     return "\n" + "Level: " + level + ", Course: " + (sub + " " + code) + ", Secton: " + section
@@ -402,4 +422,55 @@ public class Courses {
   }
 
 
+  public String getSub() {
+    return sub;
+  }
+
+  public int getCode() {
+    return code;
+  }
+
+  public String getSection() {
+    return section;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public String getProfessor() {
+    return professor;
+  }
+
+  public String getLevel() {
+    return level;
+  }
+
+  public int getSeatsAvailable() {
+    return seatsAvailable;
+  }
+
+  public List<String> getTAs() {
+    return TAs;
+  }
+
+  public List<String> getDays() {
+    return days;
+  }
+
+  public int getStartTime() {
+    return startTime;
+  }
+
+  public int getEndTime() {
+    return endTime;
+  }
+
+  public String getFacilityID() {
+    return facilityID;
+  }
+
+  public String getCampus() {
+    return campus;
+  }
 }

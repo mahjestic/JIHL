@@ -1,11 +1,12 @@
 package parser;
 
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import objects.Courses;
+import objects.Students;
 
 public class parse {
 
@@ -35,13 +36,13 @@ public class parse {
 
         String[] column = input.split(",");
 
-        // -- Sub --
+        --Sub--
         data.getSub(data, column);
 
         // -- Cat --
         data.getCode(data, column);
 
-        // -- Section --
+        //        // -- Section --
         data.getSection(data, column);
 
         // -- Title --
@@ -99,7 +100,7 @@ public class parse {
 
     String input = "";
 
-    Students data = new Students();
+    //Students data = new Students();
 
     try {
 
