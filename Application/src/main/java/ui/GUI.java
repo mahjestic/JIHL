@@ -41,9 +41,16 @@ public class GUI extends javax.swing.JFrame {
   private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     log.info("Booting up Application...");
-    Parse parser = new Parse(studentCSV, scheduleCSV);
-    List<Students> studentApplicants = parser.parseStudents();
-    List<Courses> courses = parser.parseCourses();
+    Parse parser = new Parse();
+    List<Students> studentApplicants = parser.studentFileParser(studentCSV);
+//    studentApplicants.forEach(s -> {
+//      log.info(s.toString());
+//    });
+    List<Courses> courses = parser.scheduleFileParser(scheduleCSV);
+    //log.info(courses.toString());
+
+//    ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
+//    HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
 
   }
 

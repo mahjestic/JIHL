@@ -29,7 +29,7 @@ public class ScheduleMatcher {
 
   // A DFS based recursive function that returns true if a matching
   // for vertex u is possible
-  public static boolean bpm(Boolean bpGraph[][], int u, Boolean seen[], int matchR[]) {
+  public boolean bpm(Boolean bpGraph[][], int u, Boolean seen[], int matchR[]) {
 
     // Try every job one by one
     for (int v = 0; v < numCourses; v++) {
@@ -57,7 +57,7 @@ public class ScheduleMatcher {
   }
 
   // Returns maximum number of matching from M to N
-  public static List<Integer> maxBPM(Boolean bpGraph[][]) {
+  public List<Integer> maxBPM(Boolean bpGraph[][]) {
 
     // An array to keep track of the applicants assigned to jobs.
     // The value of matchR[i] is the applicant nummber assigned to job i,
@@ -95,7 +95,7 @@ public class ScheduleMatcher {
   }
 
 
-  public static HashMap<Integer, Integer> hallsAlgorithm() {
+  public HashMap<Integer, Integer> hallsAlgorithm() {
 
     Boolean bpGraph[][] = createBPGraph();
 
@@ -120,7 +120,7 @@ public class ScheduleMatcher {
   }
 
 
-  public static Boolean[][] createBPGraph() {
+  public Boolean[][] createBPGraph() {
     List<Students> tempStudents = students;
     List<Courses> tempCourses = courses;
 

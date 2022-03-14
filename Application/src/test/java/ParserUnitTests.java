@@ -20,7 +20,7 @@ public class ParserUnitTests {
   private List<Courses> mockCourses = mockObjectGenerator.createMockCourses(courseCodes.size());
   private String MOCK_COURSES_CSV_STRING = mockObjectGenerator.toCourseCSVString(mockCourses);
 
-  private final Parse parser = new Parse(MOCK_STUDENT_CSV_STRING, MOCK_COURSES_CSV_STRING);
+  private final Parse parser = new Parse();
 
 //  private final Parse parser = new Parse(MOCK_STUDENT_CSV_STRING, )
 

@@ -70,7 +70,6 @@ public class Students {
     }
 
     hours.sort(LocalTime::compareTo); // Sort the hours, since they're not sorted in a hashmap
-    log.info(hours.toString());
 
     StringBuilder sb = new StringBuilder();
     sb.append("{");
