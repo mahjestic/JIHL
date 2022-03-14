@@ -4,12 +4,15 @@
  */
 package ui;
 
+import algorithm.ScheduleMatcher;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import objects.Courses;
+import objects.Students;
 import parser.Parse;
 
 
@@ -41,16 +44,16 @@ public class GUI extends javax.swing.JFrame {
     // TODO add your handling code here:
     log.info("Booting up Application...");
     Parse parser = new Parse();
-    //List<Students> studentApplicants = parser.studentFileParser(studentCSV);
-//    studentApplicants.forEach(s -> {
-//      log.info(s.toString());
-//    });
+    List<Students> studentApplicants = parser.studentFileParser(studentCSV);
+    studentApplicants.forEach(s -> {
+      log.info(s.toString());
+    });
     List<Courses> courses = parser.scheduleFileParser(scheduleCSV);
 
-    //log.info("GUI.java: runButtionActionPerformed: " + courses.toString());
+    log.info("GUI.java: runButtionActionPerformed: " + courses.toString());
 
-//    ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
-//    HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
+    ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
+    HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
 
   }
 

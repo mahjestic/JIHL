@@ -13,38 +13,6 @@ import objects.Students;
 public class Parse {
 
   private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-//  public static String studentCSV;
-//  public static String scheduleCSV;
-//
-//  public static Parse(String studentCSV, String scheduleCSV) {
-//    studentCSV = studentCSV;
-//  }
-//
-//  public static void parseFiles() {
-//
-//    if (!scheduleCSV.equals("") && Objects.nonNull(scheduleCSV)) {
-//      scheduleFileParser(scheduleCSV); // Run this for the schedule file
-//    }
-//  }
-
-//  public static List<Students> parseStudents() {
-////    if (Objects.nonNull(studentCSV) && !studentCSV.equals("")) {
-////
-////    } else {
-////      return null;
-////    }
-//    return studentFileParser(studentCSV); // Run this for the student file
-//
-//  }
-//
-//  public static List<Courses> parseCourses() {
-//    if (Objects.nonNull(scheduleCSV) && !scheduleCSV.equals("")) {
-//      return scheduleFileParser(scheduleCSV); // Run this for the student file
-//
-//    } else {
-//      return null;
-//    }
-//  }
 
   public Parse() {
   }
@@ -179,7 +147,7 @@ public class Parse {
         // -- objects.Courses Taken --
         data.addCoursesTaken(data, column);
 
-        log.info(data.toString());
+        //log.info(data.toString());
         studentData.add(data); // Adds student data to studentData ArrayList
         //****** log.info(studentData.toString());   // Logs info when method is called
       }

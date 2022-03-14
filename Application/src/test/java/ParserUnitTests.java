@@ -1,3 +1,5 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 import objects.Courses;
 import objects.Students;
@@ -22,7 +24,6 @@ public class ParserUnitTests {
 
   private final Parse parser = new Parse();
 
-//  private final Parse parser = new Parse(MOCK_STUDENT_CSV_STRING, )
 
   @BeforeAll
   public void init() {
@@ -32,14 +33,23 @@ public class ParserUnitTests {
   @Test
   public void testStudentParser() {
     String studCSVString = mockObjectGenerator.toStudentCSVString(mockStudents);
+    List<Students> result = parser.studentFileParser(MOCK_STUDENT_CSV_STRING);
+    result.forEach(r -> {
+      assertEquals(r.getClass(), Students.class);
 
-//    List<Students> results = parser.studentFileParser(studCSVString);
+
+    });
   }
 
 
   @Test
   public void testScheduleParser() {
 
+    List<Courses> result = parser.scheduleFileParser(MOCK_COURSES_CSV_STRING);
+    result.forEach(r -> {
+      assertEquals(r.getClass(), Courses.class);
+
+    });
   }
 
 }

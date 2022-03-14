@@ -176,16 +176,12 @@ public class ScheduleMatcher {
                 courseHourDuration--;
               }
             }
-            isAMatch = studentDay.get(courseST);
+            if (courseST.getHour() > 15 || courseST.getHour() < 8) {
+              isAMatch = false;
+            } else {
+              isAMatch = studentDay.get(courseST);
+            }
           }
-
-//          // If course is over 1 hour, then need to check if student is available during those hours
-//          if (isAMatch && courseDuration > 1) {
-//            while (courseDuration > 1) {
-//              isAMatch = studentDay.get(courseST + (courseDuration - 1));
-//              courseDuration--;
-//            }
-//          }
 
         }
 
