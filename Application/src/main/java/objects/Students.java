@@ -83,7 +83,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's first name
+   * @return adds the student's first name
    */
   public String addFirstName(Students student, String[] column) {
     String name = column[0];
@@ -94,7 +94,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's last name
+   * @return adds the student's last name
    */
   public String addLastName(Students student, String[] column) {
     String name = column[1];
@@ -105,7 +105,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's student ID
+   * @return adds the student's student ID
    */
   public int addID(Students student, String[] column) {
     int ID = Integer.parseInt(column[2]);
@@ -116,7 +116,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's email
+   * @return adds the student's email
    */
   public String addEmail(Students student, String[] column) {
     String email = column[3];
@@ -127,7 +127,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's graduating quarter
+   * @return adds the student's graduating quarter
    */
   public String addGradQuarter(Students student, String[] column) {
     String gradQuarter = column[4];
@@ -138,7 +138,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's graduating year
+   * @return adds the student's graduating year
    */
   public String addGradYear(Students student, String[] column) {
     String gradYear = column[5];
@@ -149,7 +149,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's applied TA course
+   * @return adds the student's applied TA course
    */
   public int addAppliedTACourse(Students student, String[] column) {
     int taCourse = Integer.parseInt(column[6]);
@@ -160,7 +160,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return status of student's location (on campus, not on campus)
+   * @return adds status of student's location (on campus, not on campus)
    */
   public boolean isOnCampus(Students student, String[] column) {
     String onCampus = column[7];
@@ -173,7 +173,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return whether the student knows python or not
+   * @return adds whether the student knows python or not
    */
   public boolean knowsPython(Students student, String[] column) {
     String python = column[40];
@@ -186,7 +186,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return whether the student knows VS Basics or not
+   * @return adds whether the student knows VS Basics or not
    */
   public boolean knowsVS(Students student, String[] column) {
     String vsBasics = column[41];
@@ -199,7 +199,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the student's schedule
+   * @return adds the student's schedule
    */
   public HashMap<String, HashMap<LocalTime, Boolean>> addSchedule(Students student,
       String[] column) {
@@ -294,7 +294,7 @@ public class Students {
   /**
    * @param student
    * @param column
-   * @return the courses the student's have taken
+   * @return adds the courses the student's have taken
    */
   public List<String> addCoursesTaken(Students student, String[] column) {
     String[] courses = {"CS 102", "CS 105", "CS 107", "CS 109", "CS 110", "CS 111", "CS 112",
@@ -312,50 +312,86 @@ public class Students {
     return student.coursesTaken = coursesTaken;
   }
 
+  /**
+   * @return the student's first name
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * @return the student's last name
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * @return the student's ID
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * @return the student's email
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * @return the student's graduation quarter
+   */
   public String getGradQuarter() {
     return gradQuarter;
   }
 
+   /**
+   * @return the student's graduation year
+   */ 
   public String getGradYear() {
     return gradYear;
   }
 
+  /**
+   * @return the student's applied TA course
+   */
   public int getTaCourse() {
     return taCourse;
   }
 
+  /**
+   * @return the student's campus status
+   */
   public boolean isOnCampus() {
     return onCampus;
   }
 
+  /**
+   * @return the student's knowledge on VS
+   */
   public boolean isPython() {
     return python;
   }
 
+  /**
+   * @return the student's knowledge on VS
+   */
   public boolean isVsBasics() {
     return vsBasics;
   }
 
+  /**
+   * @return the student's schedule
+   */
   public HashMap<String, HashMap<LocalTime, Boolean>> getSchedule() {
     return schedule;
   }
-
+  
+  /**
+   * @return the courses the student's has taken
+   */
   public List<String> getCoursesTaken() {
     return coursesTaken;
   }

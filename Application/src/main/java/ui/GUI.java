@@ -6,6 +6,7 @@ package ui;
 
 import algorithm.ScheduleMatcher;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,7 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import objects.Courses;
 import objects.Students;
 import parser.Parse;
-
+import parser.CSVWriter;
 
 /**
  * @author Owner
@@ -45,11 +46,15 @@ public class GUI extends javax.swing.JFrame {
   private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     log.info("Booting up Application...");
+    
     Parse parser = new Parse();
+    
     List<Students> studentApplicants = parser.studentFileParser(studentCSV);
+    
     studentApplicants.forEach(s -> {
       log.info(s.toString());
     });
+    
     List<Courses> courses = parser.scheduleFileParser(scheduleCSV);
 
     log.info("GUI.java: runButtionActionPerformed: " + courses.toString());
@@ -57,12 +62,19 @@ public class GUI extends javax.swing.JFrame {
     ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
     HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
 
+    CSVWriter outputCSV = new CSVWriter();
+    try {
+      outputCSV.createCSVFile(scheduleCSV);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     StringBuilder sb = new StringBuilder();
 
     studentApplicants.forEach(applicant -> {
       sb.append(
           courses.get(results.get(applicant)).getCode() + " " + courses.get(results.get(applicant))
-              .getProfessorLastFirst()",");
+              .getProfessorLastFirst());
     });
 
     convertToCSV(sb.toString().split(","));

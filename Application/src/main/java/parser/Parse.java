@@ -19,7 +19,10 @@ public class Parse {
 
   ;
 
-  // Schedule File Parser Method
+   /**
+   * @param file
+   * @return parsed data from Schedule CSV
+   */
   public List<Courses> scheduleFileParser(String file) {
     BufferedReader lineRead = null;
     try {
@@ -27,9 +30,12 @@ public class Parse {
       String input = "";
 
       lineRead = new BufferedReader(new FileReader(file));
-      lineRead.readLine();//first line
-      ArrayList<Courses> coursesData = new ArrayList<Courses>();
+      
+      // -- Skips header --
+      lineRead.readLine();
 
+      ArrayList<Courses> coursesData = new ArrayList<Courses>();
+      
       while ((input = lineRead.readLine()) != null) {
         String[] column = input.split(",");
         Courses data = new Courses();
@@ -96,7 +102,10 @@ public class Parse {
     return null;
   }
 
-  //Student File Parser Method
+   /**
+   * @param file
+   * @return parsed data from Student CSV
+   */
   public List<Students> studentFileParser(String file) {
     BufferedReader lineRead = null;
 
@@ -104,18 +113,20 @@ public class Parse {
 
       String input = "";
 
-      Students data = new Students();
-
+      
       lineRead = new BufferedReader(new FileReader(file));
-      lineRead.readLine(); // Skip first line
-      lineRead.readLine(); // Skip second line
+      
+      // -- Skips header --
+      lineRead.readLine(); 
+      lineRead.readLine(); 
+
       ArrayList<Students> studentData = new ArrayList<Students>();
-
+      
       while ((input = lineRead.readLine()) != null) {
-
+        
         //log.info(input);
         String[] column = input.split(",");
-        int length = column.length;
+        Students data = new Students();
 
         // -- Name --
         data.addFirstName(data, column);
