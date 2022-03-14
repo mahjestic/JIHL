@@ -14,29 +14,36 @@ public class Parse {
 
   private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+  public static List<String[]> courses = new ArrayList<>();
+
   public Parse() {
   }
 
   ;
 
-  // Schedule File Parser Method
+  /**
+   * @param file
+   * @return parsed data from Schedule CSV
+   */
   public List<Courses> scheduleFileParser(String file) {
     BufferedReader lineRead = null;
+    
     try {
-
       String input = "";
 
+      
       lineRead = new BufferedReader(new FileReader(file));
-      lineRead.readLine();//first line
+      
+      // -- Skips header --
+      lineRead.readLine();
+      
       ArrayList<Courses> coursesData = new ArrayList<Courses>();
-
+      
       while ((input = lineRead.readLine()) != null) {
         String[] column = input.split(",");
         Courses data = new Courses();
 
         System.out.println("Parse.java: scheduleFileReader: " + input);
-        //List<String> t = Arrays.asList(column);
-        //System.out.println(t.toString());
         // --Sub--
         data.addSub(data, column);
 
@@ -69,12 +76,11 @@ public class Parse {
 
         // -- End Time --
         data.addEndTime(data, column);
+        
+        coursesData.add(data);
 
-        coursesData.add(data); //Adds Schedule data to courseData arrayList
-        //log.info(coursesData.toString());   // Logs info when method is called
-
+        //***** log.info(coursesData.toString());   // Logs info when method is called
       }
-
       log.info("Parse.java: scheduleFileReader: " + coursesData.toString());
       return coursesData;
 
@@ -96,26 +102,30 @@ public class Parse {
     return null;
   }
 
-  //Student File Parser Method
+   /**
+   * @param file
+   * @return parsed data from Student CSV
+   */
   public List<Students> studentFileParser(String file) {
     BufferedReader lineRead = null;
 
     try {
-
       String input = "";
-
-      Students data = new Students();
-
+  
+      
       lineRead = new BufferedReader(new FileReader(file));
-      lineRead.readLine(); // Skip first line
-      lineRead.readLine(); // Skip second line
-      ArrayList<Students> studentData = new ArrayList<Students>();
-
+      
+      // -- Skips header --
+      lineRead.readLine(); 
+      lineRead.readLine(); 
+      
+      ArrayList<Students> studentData = new ArrayList<Students>();;
+      
       while ((input = lineRead.readLine()) != null) {
-
+        
         //log.info(input);
         String[] column = input.split(",");
-        int length = column.length;
+        Students data = new Students();
 
         // -- Name --
         data.addFirstName(data, column);
@@ -146,14 +156,14 @@ public class Parse {
 
         // -- objects.Courses Taken --
         data.addCoursesTaken(data, column);
+       
+        // -- Might not need this anymore? --
+        studentData.add(data); // Adds student data to data ArrayList
+        //---------------------
 
-        //log.info(data.toString());
-        studentData.add(data); // Adds student data to studentData ArrayList
-        //****** log.info(studentData.toString());   // Logs info when method is called
+        //***** log.info(data.toString());   // Logs info when method is called
       }
-
       return studentData;
-
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -168,9 +178,8 @@ public class Parse {
           e.printStackTrace();
         }
       }
-
     }
     return null;
   }
-}
 
+}

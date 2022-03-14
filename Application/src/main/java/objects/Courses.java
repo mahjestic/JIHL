@@ -20,8 +20,6 @@ public class Courses {
   private int seatsAvailable;
   private List<String> TAs;
   private List<String> days;
-//  private int startTime;
-//  private int endTime;
 
   private LocalTime startTime;
   private LocalTime endTime;
@@ -49,8 +47,6 @@ public class Courses {
     this.endTime = endTime;
     this.facilityID = facilityID;
     this.campus = campus;
-
-
   }
 
   @Override
@@ -67,7 +63,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the sub of the course
+   * @return adds the sub of to the Course object
    */
   public String addSub(Courses course, String[] column) {
 
@@ -79,7 +75,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the code of the course
+   * @return adds the code of the course to the Course object
    */
   public int addCode(Courses course, String[] column) {
 
@@ -91,7 +87,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the section of the course
+   * @return adds the section of the course to the Course object
    */
   public String addSection(Courses course, String[] column) {
 
@@ -103,7 +99,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the title of the course
+   * @return adds the title of the course to the Course object
    */
   public String addTitle(Courses course, String[] column) {
 
@@ -115,7 +111,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the TA level of the course
+   * @return adds the TA level of the course to the Course object
    */
   public String addLevel(Courses course, String[] column) {
 
@@ -136,7 +132,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the facility ID of the course
+   * @return adds the facility ID of the course to the Course object
    */
   public String addFacilID(Courses course, String[] column) {
     String ID;
@@ -153,7 +149,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return whether the course is on campus or not
+   * @return adds whether the course is on campus or not to the Course object
    */
   public String addCampus(Courses course, String[] column) {
     String campus;
@@ -166,7 +162,7 @@ public class Courses {
   /**
    * @param course
    * @param column
-   * @return the professor of the course
+   * @return adds the professor of the course to the Course object
    */
   public String addProfessor(Courses course, String[] column) {
 
@@ -186,9 +182,15 @@ public class Courses {
   }
 
   /**
+   * Abbreviation Explanation:
+   *    TBD = To be determind 
+   *    WEB = Online class
+   *    EBURG = On campus
+   *    A = Asynchronous 
+   *  
    * @param course
    * @param column
-   * @return the days the course will take place
+   * @return adds the course schedule to the Course object
    */
   public List<String> addDays(Courses course, String[] column) {
 
@@ -197,7 +199,7 @@ public class Courses {
     String professor = course.addProfessor(course, column);
     String campus = course.addCampus(course, column);
 
-    //If professor is undefined
+    // -- If professor column is empty --
     if (professor.equals("TBD")) {
       String daysCol = column[5];
 
@@ -220,7 +222,7 @@ public class Courses {
         }
       }
     }
-    //If professor is defined
+    // If professor column is not empty 
     else {
       String daysCol = column[6];
       if (daysCol == "" && campus.equals("WEB")) {
@@ -241,10 +243,15 @@ public class Courses {
     return course.days = days;
   }
 
-  /**
+ /**
+   * Time explanation:
+   *    0 = Asynchronous (no time stated)
+   *    8-11 = Regular AM schedule
+   *    12-18 = Military time PM schedule (e.g. 14 = 2PM)
+   * 
    * @param course
    * @param column
-   * @return the starting time of the course
+   * @return adds the starting time of the course to the Course object
    */
   public LocalTime addStartTime(Courses course, String[] column) {
     LocalTime sT = LocalTime.MIDNIGHT;
@@ -390,27 +397,44 @@ public class Courses {
 
   }
 
-
+  /**
+   * @return the sub of the course 
+   */
   public String getSub() {
     return sub;
   }
 
+  /**
+   * @return the code of the course 
+   */
   public int getCode() {
     return code;
   }
 
+  /**
+   * @return the section of the course 
+   */
   public String getSection() {
     return section;
   }
 
+  /**
+   * @return the title of the course 
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * @return the professor of the course 
+   */
   public String getProfessor() {
     return professor;
   }
 
+  /**
+   * @return the professor's last and first name of the course 
+   */
   public String getProfessorLastFirst() {
     if (Objects.isNull(professorLastFirst)) {
       return professor;
@@ -419,34 +443,58 @@ public class Courses {
     }
   }
 
+  /**
+   * @return the level of the course 
+   */
   public String getLevel() {
     return level;
   }
 
+  /**
+   * @return the seats available in the course 
+   */
   public int getSeatsAvailable() {
     return seatsAvailable;
   }
 
+  /**
+   * @return the TA's of the course 
+   */
   public List<String> getTAs() {
     return TAs;
   }
 
+  /**
+   * @return the schedule of the course 
+   */
   public List<String> getDays() {
     return days;
   }
 
+  /**
+   * @return the start time of the course 
+   */
   public LocalTime getStartTime() {
     return startTime;
   }
 
+  /**
+   * @return the end time of the course 
+   */
   public LocalTime getEndTime() {
     return endTime;
   }
 
+  /**
+   * @return the facility ID of the course 
+   */
   public String getFacilityID() {
     return facilityID;
   }
 
+  /**
+   * @return the location of the course (online or on campus)
+   */
   public String getCampus() {
     return campus;
   }

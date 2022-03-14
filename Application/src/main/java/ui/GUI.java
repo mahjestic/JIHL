@@ -6,6 +6,7 @@ package ui;
 
 import algorithm.ScheduleMatcher;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import objects.Courses;
 import objects.Students;
 import parser.Parse;
+import parser.CSVWriter;
 
 
 /**
@@ -40,7 +42,7 @@ public class GUI extends javax.swing.JFrame {
   }
 
 
-  private void runButtonActionPerformed(java.awt.event.ActionEvent evt) {
+  private void runButtonActionPerformed(java.awt.event.ActionEvent evt){
     // TODO add your handling code here:
     log.info("Booting up Application...");
     Parse parser = new Parse();
@@ -54,6 +56,14 @@ public class GUI extends javax.swing.JFrame {
 
     ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
     HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
+    
+    CSVWriter outputCSV = new CSVWriter();
+    try {
+      outputCSV.createCSVFile(scheduleCSV);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
   }
 
