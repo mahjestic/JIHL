@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import algorithm.ScheduleMatcher;
 import java.util.List;
 import objects.Courses;
 import objects.Students;
@@ -50,6 +51,12 @@ public class ParserUnitTests {
       assertEquals(r.getClass(), Courses.class);
 
     });
+  }
+
+  @Test
+  public void testHallAlgorithm() {
+    ScheduleMatcher matcher = new ScheduleMatcher(mockStudents, mockCourses);
+    System.out.print(matcher.hallsAlgorithm());
   }
 
 }

@@ -9,6 +9,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import objects.Courses;
@@ -55,6 +57,31 @@ public class GUI extends javax.swing.JFrame {
     ScheduleMatcher matchMachine = new ScheduleMatcher(studentApplicants, courses);
     HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
 
+    StringBuilder sb = new StringBuilder();
+
+    studentApplicants.forEach(applicant -> {
+      sb.append(
+          courses.get(results.get(applicant)).getCode() + " " + courses.get(results.get(applicant))
+              .getProfessorLastFirst()",");
+    });
+
+    convertToCSV(sb.toString().split(","));
+
+  }
+
+  public String convertToCSV(String[] data) {
+    return Stream.of(data)
+        .map(this::escapeSpecialCharacters)
+        .collect(Collectors.joining(","));
+  }
+
+  public String escapeSpecialCharacters(String data) {
+    String escapedData = data.replaceAll("\\R", " ");
+    if (data.contains(",") || data.contains("\"") || data.contains("'")) {
+      data = data.replace("\"", "\"\"");
+      escapedData = "\"" + data + "\"";
+    }
+    return escapedData;
   }
 
   /**
