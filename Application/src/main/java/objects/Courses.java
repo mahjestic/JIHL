@@ -2,6 +2,7 @@ package objects;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -269,13 +270,15 @@ public class Courses {
 
           }
         }
-        if (temp[0] == "") {
-          temp[0] = "0";
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
-        if (temp[1] == "") {
-          temp[1] = "0";
-        }
-        sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
       }
 //      char c = time.charAt(0);
 //
@@ -297,7 +300,10 @@ public class Courses {
       String time = column[7];
       if (time.length() >= 3) {
         String suffix = time.substring(time.length() - 2);
+        log.info(suffix);
         String[] temp = time.substring(0, time.length() - 2).split(":");
+        List<String> a = Arrays.asList(temp);
+        log.info(a.toString());
         if (suffix.equals("PM")) {
           if (temp[0].equals("12")) {
             int t = Integer.parseInt(temp[0]) + 11;
@@ -309,14 +315,15 @@ public class Courses {
 
           }
         }
-
-        if (temp[0] == "") {
-          temp[0] = "0";
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
-        if (temp[1] == "") {
-          temp[1] = "0";
-        }
-        sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
       }
 
 //      if (!time.equals(":")) {
@@ -373,13 +380,15 @@ public class Courses {
 
           }
         }
-        if (temp[0] == "") {
-          temp[0] = "0";
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
-        if (temp[1] == "") {
-          temp[1] = "0";
-        }
-        eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
       }
 
 //      if (!time.equals(":")) {
@@ -423,13 +432,15 @@ public class Courses {
 
           }
         }
-        if (temp[0] == "") {
-          temp[0] = "0";
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
-        if (temp[1] == "") {
-          temp[1] = "0";
-        }
-        eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
       }
 //      if (!time.equals(":")) {
 //        if (time.length() == 3) {
