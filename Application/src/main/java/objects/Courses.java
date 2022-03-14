@@ -280,21 +280,6 @@ public class Courses {
           sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
       }
-//      char c = time.charAt(0);
-//
-//      if (!time.equals(":")) {
-//        if (time.length() == 3) {
-//          sT = LocalTime.MIDNIGHT;
-//        }
-//      } else {
-//        String suffix = time.substring(time.length() - 2);
-//        String[] temp = time.substring(0, time.length() - 2).split(":");
-//        if (suffix.equals("PM")) {
-//          temp[0] = temp[0] + 12;
-//        }
-//
-//        sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-//      }
 
     } else { // If Professor column is not empty
       String time = column[7];
@@ -326,29 +311,9 @@ public class Courses {
         }
       }
 
-//      if (!time.equals(":")) {
-//        if (time.length() == 3) {
-//          sT = LocalTime.MIDNIGHT;
-//        } else {
-//          String suffix = time.substring(time.length() - 2);
-//          String[] temp = time.substring(0, time.length() - 2).split(":");
-//          if (suffix.equals("PM")) {
-//            if (temp[0].equals("12")) {
-//              int t = Integer.parseInt(temp[0]) + 11;
-//              temp[0] = Integer.toString(t);
-//
-//            } else {
-//              int t = Integer.parseInt(temp[0]) + 12;
-//              temp[0] = Integer.toString(t);
-//            }
-//          }
-//
-//          sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-//        }
-//      }
-
     }
-    return sT;
+    //log.info(sT.toString());
+    return course.startTime = sT;
 
   }
 
@@ -391,29 +356,6 @@ public class Courses {
         }
       }
 
-//      if (!time.equals(":")) {
-//        if (time.length() == 3) {
-//          eT = LocalTime.MIDNIGHT;
-//
-//        } else {
-//          String suffix = time.substring(time.length() - 2);
-//          String[] temp = time.substring(0, time.length() - 2).split(":");
-//
-//          if (suffix.equals("PM")) {
-//            if (temp[0].equals("12")) {
-//              int t = Integer.parseInt(temp[0]) + 11;
-//              temp[0] = Integer.toString(t);
-//
-//            } else {
-//              int t = Integer.parseInt(temp[0]) + 12;
-//              temp[0] = Integer.toString(t);
-//
-//            }
-//          }
-//          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-//
-//        }
-//      }
 
     } else { // If Professor column is not empty
 
@@ -442,29 +384,9 @@ public class Courses {
           eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
       }
-//      if (!time.equals(":")) {
-//        if (time.length() == 3) {
-//          eT = LocalTime.MIDNIGHT;
-//        } else {
-//          String suffix = time.substring(time.length() - 2);
-//          String[] temp = time.substring(0, time.length() - 2).split(":");
-//          if (suffix.equals("PM")) {
-//            if (temp[0].equals("12")) {
-//              int t = Integer.parseInt(temp[0]) + 11;
-//              temp[0] = Integer.toString(t);
-//
-//            } else {
-//              int t = Integer.parseInt(temp[0]) + 12;
-//              temp[0] = Integer.toString(t);
-//            }
-//          }
-//
-//          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
-//
-//        }
-//      }
     }
-    return eT;
+    //log.info(eT.toString());
+    return course.endTime = eT;
 
   }
 
