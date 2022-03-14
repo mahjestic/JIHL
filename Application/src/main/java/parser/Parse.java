@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import objects.Courses;
@@ -67,9 +66,9 @@ public class Parse {
         String[] column = input.split(",");
         Courses data = new Courses();
 
-        System.out.println(input);
-        List<String> t = Arrays.asList(column);
-        System.out.println(t.toString());
+        System.out.println("Parse.java: scheduleFileReader: " + input);
+        //List<String> t = Arrays.asList(column);
+        //System.out.println(t.toString());
         // --Sub--
         data.addSub(data, column);
 
@@ -104,11 +103,11 @@ public class Parse {
         data.addEndTime(data, column);
 
         coursesData.add(data); //Adds Schedule data to courseData arrayList
-        //****** log.info(coursesData.toString());   // Logs info when method is called
+        //log.info(coursesData.toString());   // Logs info when method is called
 
       }
 
-      log.info(coursesData.toString());
+      log.info("Parse.java: scheduleFileReader: " + coursesData.toString());
       return coursesData;
 
     } catch (FileNotFoundException e) {
@@ -180,6 +179,7 @@ public class Parse {
         // -- objects.Courses Taken --
         data.addCoursesTaken(data, column);
 
+        log.info(data.toString());
         studentData.add(data); // Adds student data to studentData ArrayList
         //****** log.info(studentData.toString());   // Logs info when method is called
       }
