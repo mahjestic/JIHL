@@ -14,12 +14,12 @@ public class Main {
 //    studs.forEach(student -> {
 //      System.out.println(student.toString());
 //    });
-
+//
 //    List<Courses> courses = generator.createMockCourses(
 //        generator.numTotalCourses);
-////    courses.forEach(course -> {
-////      System.out.println(course.toString());
-////    });
+//    courses.forEach(course -> {
+//      System.out.println(course.toString());
+//    });
 //
 //    ScheduleMatcher matcher = new ScheduleMatcher(studs, courses);
 //    HashMap<Integer, Integer> results = matcher.hallsAlgorithm();

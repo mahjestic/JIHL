@@ -1,6 +1,7 @@
 package utils;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -74,13 +75,32 @@ public class MockObjectGenerator {
       List<String> secondRowDays = checkDays(
           tempDays);   // This is when the same section has a second row (like lecture/lab)
 
-      Integer sT = randy.nextInt((19 - 6) + 1) + 6; //Start Time, just rounding into whole hours
-      Integer eT = sT + 1;  // End time is just going to be one hour after start at the moment
+      int mult = randy.nextInt(12 - 0); // multiplier to 5 minute possible minute intervals
+      LocalTime sT = LocalTime
+          .of((randy.nextInt((19 - 6) + 1) + 6), (5 * mult));   // Possible times for classes
+      LocalTime eT = sT
+          .plusMinutes(50);    // End time is just going to be one hour after start at the moment
+
+      //[TODO] classes with multi-hour durations
 
       String facilID = UUID.randomUUID().toString();  // Facility ID
       String camp = "EBURG";  // On Campus or Web
       if (randy.nextBoolean()) {
         camp = "WEB";
+      }
+
+      if (!camp.equals("EBURG") && (secondRowDays.isEmpty() && randy.nextBoolean())) {
+        if (randy.nextBoolean()) {
+          sT = LocalTime.MIDNIGHT;
+          eT = LocalTime.MIDNIGHT;
+        }
+
+      } else if (!camp.equals("EBURG") &&
+          (!secondRowDays.isEmpty() &&
+              (!secondRowDays.get(0).equals("") &&
+                  randy.nextBoolean()))) {
+        sT = LocalTime.MIDNIGHT;
+        eT = LocalTime.MIDNIGHT;
       }
 
       Courses courseToAdd = new Courses(
@@ -106,16 +126,23 @@ public class MockObjectGenerator {
       // then create another class value
       if (!secondRowDays.isEmpty()) {
 
-        Integer startTime = 0;
-        Integer endTime = 0;
+        LocalTime startTime = LocalTime.MIDNIGHT;
+        LocalTime endTime = LocalTime.MIDNIGHT;
         String campus = "EBURG";
         if (randy.nextBoolean() || secondRowDays.get(0).equals("")) {
           campus = "WEB";
         }
 
         if (!secondRowDays.get(0).equals("")) {   // If it is not an online hybrid (async)
-          startTime = randy.nextInt((19 - 6) + 1) + 6;
-          endTime = startTime + 1;
+          if (randy.nextBoolean() && campus.equals("WEB")) {     // 50% chance that the web
+            int multiplier = randy.nextInt(12 - 0);
+            startTime = LocalTime.of((randy.nextInt((19 - 6) + 1) + 6), (5 * multiplier));
+
+            //[TODO] classes with multi-hour durations
+            endTime = startTime.plusMinutes(50);
+          }
+
+
         }
 
         Courses secondCourseSameSection = new Courses(
@@ -152,7 +179,7 @@ public class MockObjectGenerator {
     List<String> secondSectionDays = new ArrayList<>();
     Random randy = new Random();
 
-    // Should be paired with a Lab (doesnt matter if in person or online
+    // Should be paired with a Lab (IP/W; if one is O then other != W)
     if (days.equals(Arrays.asList("M", "W", "TH"))) {
       secondSectionDays.add("T");
 
@@ -162,7 +189,7 @@ public class MockObjectGenerator {
       secondSectionDays.add("W");
       secondSectionDays.add("TH");
 
-      // Singular 'W' is often either one singular row or the lab for a hybrid course
+      // Singular 'W' is often either one singular row (IP/W) or the lab for a hybrid course(IP)
     } else if (days.equals(Arrays.asList("W"))) {
 
       // Determines if this will be one section one row, or if it will be one section
@@ -178,10 +205,10 @@ public class MockObjectGenerator {
       // determine if singular or with hybrid portion
       if (randy.nextBoolean()) {
 
-        if (randy.nextBoolean()) {
+        if (randy.nextBoolean()) {  // determine whether secondary row is async or on M,W
           secondSectionDays.add("");  // Add asynchronous hybrid online row
 
-          // If false, add secondary row with 'M', 'W' days
+          // OR add secondary row with 'M', 'W' days
         } else {
           secondSectionDays.add("M");
           secondSectionDays.add("W");
@@ -221,25 +248,25 @@ public class MockObjectGenerator {
         course = 392;
       }
 
-      HashMap<String, HashMap<Integer, Boolean>> schedule = new HashMap<String, HashMap<Integer, Boolean>>();
+      HashMap<String, HashMap<LocalTime, Boolean>> schedule = new HashMap<String, HashMap<LocalTime, Boolean>>();
       List<String> days = Arrays.asList("M", "T", "W", "TH");
       days.forEach(day -> {
-        schedule.put(day, new HashMap<Integer, Boolean>() {{
-          put(6, randy.nextBoolean());
-          put(7, randy.nextBoolean());
-          put(8, randy.nextBoolean());
-          put(9, randy.nextBoolean());
-          put(10, randy.nextBoolean());
-          put(11, randy.nextBoolean());
-          put(12, randy.nextBoolean());
-          put(13, randy.nextBoolean());
-          put(14, randy.nextBoolean());
-          put(15, randy.nextBoolean());
-          put(16, randy.nextBoolean());
-          put(17, randy.nextBoolean());
-          put(18, randy.nextBoolean());
-          put(19, randy.nextBoolean());
-          put(20, randy.nextBoolean());
+        schedule.put(day, new HashMap<LocalTime, Boolean>() {{
+          put(LocalTime.of(6, 0), randy.nextBoolean());
+          put(LocalTime.of(7, 0), randy.nextBoolean());
+          put(LocalTime.of(8, 0), randy.nextBoolean());
+          put(LocalTime.of(9, 0), randy.nextBoolean());
+          put(LocalTime.of(10, 0), randy.nextBoolean());
+          put(LocalTime.of(11, 0), randy.nextBoolean());
+          put(LocalTime.of(12, 0), randy.nextBoolean());
+          put(LocalTime.of(13, 0), randy.nextBoolean());
+          put(LocalTime.of(14, 0), randy.nextBoolean());
+          put(LocalTime.of(15, 0), randy.nextBoolean());
+          put(LocalTime.of(16, 0), randy.nextBoolean());
+          put(LocalTime.of(17, 0), randy.nextBoolean());
+          put(LocalTime.of(18, 0), randy.nextBoolean());
+          put(LocalTime.of(19, 0), randy.nextBoolean());
+          put(LocalTime.of(20, 0), randy.nextBoolean());
         }});
       });
 
@@ -289,16 +316,16 @@ public class MockObjectGenerator {
               + s.getGradQuarter() + "," + s.getGradYear() + "," + s.getTaCourse());
 
       // Extracting and formatting the days
-      HashMap<String, HashMap<Integer, Boolean>> studSched = s.getSchedule();
+      HashMap<String, HashMap<LocalTime, Boolean>> studSched = s.getSchedule();
       List<String> days = Arrays.asList("M", "T", "W", "TH");
       days.forEach(d -> {
-        HashMap<Integer, Boolean> businessDay = studSched.get(d);
+        HashMap<LocalTime, Boolean> businessDay = studSched.get(d);
 
         Iterator iterator = businessDay.entrySet().iterator();
 
         while (iterator.hasNext()) {
           Map.Entry element = (Map.Entry) iterator.next();
-          Integer key = ((Integer) element.getKey());
+          LocalTime key = ((LocalTime) element.getKey());
           Boolean val = ((Boolean) element.getValue());
 
           String temp = "Conflict";
@@ -328,21 +355,24 @@ public class MockObjectGenerator {
 
 
     /*
+
+    EXAMPLE SNIPPET OF DESIRED OUTPUT FORMAT
+
     CS,102,1,Health and Technology,"Salter,Rosemary", T  TH,9:00AM,9:50AM,SAMU171,EBURG
-CS,105,1,The Logical Basis of Computing,"Abdul-Wahid,Sarah",,:AM,:AM,,EBURG
-CS,105,1,The Logical Basis of Computing,"Abdul-Wahid,Sarah", T  TH,11:00AM,11:50AM,SAMU171,EBURG
-CS,107,1,Make a Game with Computer Sci,"Harrison,Tatiana F", T  TH,2:00PM,2:50PM,SAMU147,EBURG
-CS,107,1,Make a Game with Computer Sci,"Harrison,Tatiana F",M  W,2:00PM,2:50PM,,EBURG
-CS,109,1,Quantitative Reasoning: Python,"Abdul-Wahid,Sarah", T  TH,1:00PM,1:50PM,SAMU171,EBURG
-CS,110,A01,Programming Fundamentals I,"Hueffed,Joseph Dominic",  W,6:00PM,6:45PM,ONLINE,WEB
-CS,110,A01,Programming Fundamentals I,"Hueffed,Joseph Dominic",  W,6:45PM,7:30PM,ONLINE,WEB
+    CS,105,1,The Logical Basis of Computing,"Abdul-Wahid,Sarah",,:AM,:AM,,EBURG
+    CS,105,1,The Logical Basis of Computing,"Abdul-Wahid,Sarah", T  TH,11:00AM,11:50AM,SAMU171,EBURG
+    CS,107,1,Make a Game with Computer Sci,"Harrison,Tatiana F", T  TH,2:00PM,2:50PM,SAMU147,EBURG
+    CS,107,1,Make a Game with Computer Sci,"Harrison,Tatiana F",M  W,2:00PM,2:50PM,,EBURG
+    CS,109,1,Quantitative Reasoning: Python,"Abdul-Wahid,Sarah", T  TH,1:00PM,1:50PM,SAMU171,EBURG
+    CS,110,A01,Programming Fundamentals I,"Hueffed,Joseph Dominic",  W,6:00PM,6:45PM,ONLINE,WEB
+    CS,110,A01,Programming Fundamentals I,"Hueffed,Joseph Dominic",  W,6:45PM,7:30PM,ONLINE,WEB
      */
 
   public String toCourseCSVString(List<Courses> courses) {
     StringBuilder sb = new StringBuilder();
 
     courses.forEach(c -> {
-      // Handle Initial stuff (Sub, Code, Sec, Title, Name
+      // Handle Initial rows Sub, Code, Sec, Title, Name
       sb.append(
           c.getSub() + "," + c.getCode() + "," + c.getSection() + "," + c.getTitle() + ",\"" + c
               .getProfessorLastFirst() + "\"");
@@ -358,24 +388,24 @@ CS,110,A01,Programming Fundamentals I,"Hueffed,Joseph Dominic",  W,6:45PM,7:30PM
         });
         sb.append(",");
       }
-      //Append the times
-      int unformattedST = c.getStartTime();
-      int unformattedET = c.getEndTime();
-      String timeSuffix = "AM";
-      String finalST;
-      if (unformattedST > 12) {
-        finalST = unformattedST - 12 + "PM";
-      } else {
-        finalST = unformattedST + "AM";
-      }
-      sb.append("," + finalST);
 
-      String finalET;
-      if (unformattedET > 12) {
-        finalET = unformattedET - 12 + "PM";
+      // Append Start Time
+      if (c.getStartTime().equals(LocalTime.MIDNIGHT)) {
+        sb.append(",:AM");
       } else {
-        finalET = unformattedET + "AM"
+        sb.append("," + c.getStartTime().getHour() + ":" + c.getStartTime().getMinute());
       }
+
+      // Append End Time
+      if (c.getEndTime().equals(LocalTime.MIDNIGHT)) {
+        sb.append(",:AM");
+      } else {
+        sb.append("," + c.getEndTime() + ":" + c.getEndTime().getMinute());
+
+      }
+
+      // Append Faculty ID and campus
+      sb.append("," + c.getFacilityID() + "," + c.getCampus());
     });
 
     return sb.toString();
