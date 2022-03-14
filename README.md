@@ -16,4 +16,7 @@ As far as I know, no license is necessary for this submission.
 ___
 ## How The Program Works
 
-This program takes in two CSV files from the user: one specifying different courses that require TAs, and the other specifying students that need a TA assignment. Our program applies a parsing system to read through each file and then feeds that data into the algorithm. This algorithm utilizes maximum bipartite matching to determine the most effective schedule. After establishing the schedule, the program organizes it into a new CSV file that is then given to the user to download.  
+This program takes in two CSV files from the user: one specifying different courses that require TAs, and the other specifying students that need a TA assignment. Our program applies a parsing system to read through each file and then feeds that data into the algorithm. The algorithm creates a truth matrix of students to courses that declares what courses each student is eligible for, and utilizes maximum bipartite matching to find the best schedule based on the different requirements for each student. After establishing the schedule, the program organizes it into a new CSV file that is then given to the user to download.  
+
+
+
