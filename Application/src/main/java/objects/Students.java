@@ -1,8 +1,10 @@
 package objects;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class Students {
@@ -19,7 +21,7 @@ public class Students {
   private boolean onCampus;
   private boolean python;
   private boolean vsBasics;
-  private HashMap<String, HashMap<Integer, Boolean>> schedule;
+  private HashMap<String, HashMap<LocalTime, Boolean>> schedule;
   private List<String> coursesTaken;
 
   public Students() {
@@ -27,7 +29,7 @@ public class Students {
 
   public Students(String firstName, String lastName, int id, String email, String gradQuarter,
       String gradYear, int taCourse, boolean onCampus, boolean python, boolean vsBasics,
-      HashMap<String, HashMap<Integer, Boolean>> schedule,
+      HashMap<String, HashMap<LocalTime, Boolean>> schedule,
       List<String> coursesTaken) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -52,11 +54,30 @@ public class Students {
         "TA Course: " + taCourse + ", In Person: " + onCampus + ", Python: " + python +
         ", VS Basics?: " + vsBasics + "\n" +
         "Schedule: " + "\n" +
-        "    Monday: " + schedule.get("M") + "\n" +
-        "    Tuesday: " + schedule.get("T") + "\n" +
-        "    Wednesday: " + schedule.get("W") + "\n" +
-        "    Thursday: " + schedule.get("TH") + "\n" +
+        "    Monday: " + printSchedule("M") + "\n" +
+        "    Tuesday: " + printSchedule("T") + "\n" +
+        "    Wednesday: " + printSchedule("W") + "\n" +
+        "    Thursday: " + printSchedule("TH") + "\n" +
         "objects.Courses: " + "\n" + coursesTaken;
+  }
+
+  public String printSchedule(String day) {
+    HashMap<LocalTime, Boolean> dayMap = schedule.get(day);
+
+    List<LocalTime> hours = new ArrayList<>();
+    for (Map.Entry<LocalTime, Boolean> entry : dayMap.entrySet()) {
+      hours.add(entry.getKey());
+    }
+
+    hours.sort(LocalTime::compareTo); // Sort the hours, since they're not sorted in a hashmap
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("{");
+    hours.forEach(h -> {
+      sb.append(h.toString() + "=" + dayMap.get(h) + ", ");
+    });
+    sb.append(" }");
+    return sb.toString();
   }
 
   /**
@@ -180,16 +201,17 @@ public class Students {
    * @param column
    * @return the student's schedule
    */
-  public HashMap<String, HashMap<Integer, Boolean>> addSchedule(Students student, String[] column) {
+  public HashMap<String, HashMap<LocalTime, Boolean>> addSchedule(Students student,
+      String[] column) {
 
-    HashMap<String, HashMap<Integer, Boolean>> schedule = new HashMap<>();
+    HashMap<String, HashMap<LocalTime, Boolean>> schedule = new HashMap<>();
 
     String isAvailable = "Open";
 
     // -- Loops through entire schedule --
     for (int i = 8; i < 40; ) {
       // -- Loops through week --
-      HashMap<Integer, Boolean> availability = new HashMap<>();
+      HashMap<LocalTime, Boolean> availability = new HashMap<>();
 
       for (int j = 0; j < 8; j++) {
 
@@ -198,58 +220,58 @@ public class Students {
         switch (i % 8) {
           case 0:
             if (available) {
-              availability.put(8, true);
+              availability.put(LocalTime.of(8, 0), true);
             } else {
-              availability.put(8, false);
+              availability.put(LocalTime.of(8, 0), false);
             }
             break;
           case 1:
             if (available) {
-              availability.put(9, true);
+              availability.put(LocalTime.of(9, 0), true);
             } else {
-              availability.put(9, false);
+              availability.put(LocalTime.of(9, 0), false);
             }
             break;
           case 2:
             if (available) {
-              availability.put(10, true);
+              availability.put(LocalTime.of(10, 0), true);
             } else {
-              availability.put(10, false);
+              availability.put(LocalTime.of(10, 0), false);
             }
             break;
           case 3:
             if (available) {
-              availability.put(11, true);
+              availability.put(LocalTime.of(11, 0), true);
             } else {
-              availability.put(11, false);
+              availability.put(LocalTime.of(11, 0), false);
             }
             break;
           case 4:
             if (available) {
-              availability.put(12, true);
+              availability.put(LocalTime.of(12, 0), true);
             } else {
-              availability.put(12, false);
+              availability.put(LocalTime.of(12, 0), false);
             }
             break;
           case 5:
             if (available) {
-              availability.put(13, true);
+              availability.put(LocalTime.of(13, 0), true);
             } else {
-              availability.put(13, false);
+              availability.put(LocalTime.of(13, 0), false);
             }
             break;
           case 6:
             if (available) {
-              availability.put(14, true);
+              availability.put(LocalTime.of(14, 0), true);
             } else {
-              availability.put(14, false);
+              availability.put(LocalTime.of(14, 0), false);
             }
             break;
           case 7:
             if (available) {
-              availability.put(15, true);
+              availability.put(LocalTime.of(15, 0), true);
             } else {
-              availability.put(15, false);
+              availability.put(LocalTime.of(15, 0), false);
             }
             break;
         }
@@ -330,7 +352,7 @@ public class Students {
     return vsBasics;
   }
 
-  public HashMap<String, HashMap<Integer, Boolean>> getSchedule() {
+  public HashMap<String, HashMap<LocalTime, Boolean>> getSchedule() {
     return schedule;
   }
 

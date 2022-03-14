@@ -1,5 +1,6 @@
 package algorithm;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ScheduleMatcher {
 
   // A DFS based recursive function that returns true if a matching
   // for vertex u is possible
-  public static boolean bpm(Boolean bpGraph[][], int u, Boolean seen[], int matchR[]) {
+  public boolean bpm(Boolean bpGraph[][], int u, Boolean seen[], int matchR[]) {
 
     // Try every job one by one
     for (int v = 0; v < numCourses; v++) {
@@ -56,7 +57,7 @@ public class ScheduleMatcher {
   }
 
   // Returns maximum number of matching from M to N
-  public static List<Integer> maxBPM(Boolean bpGraph[][]) {
+  public List<Integer> maxBPM(Boolean bpGraph[][]) {
 
     // An array to keep track of the applicants assigned to jobs.
     // The value of matchR[i] is the applicant nummber assigned to job i,
@@ -94,7 +95,7 @@ public class ScheduleMatcher {
   }
 
 
-  public static HashMap<Integer, Integer> hallsAlgorithm() {
+  public HashMap<Integer, Integer> hallsAlgorithm() {
 
     Boolean bpGraph[][] = createBPGraph();
 
@@ -119,7 +120,7 @@ public class ScheduleMatcher {
   }
 
 
-  public static Boolean[][] createBPGraph() {
+  public Boolean[][] createBPGraph() {
     List<Students> tempStudents = students;
     List<Courses> tempCourses = courses;
 
@@ -148,24 +149,37 @@ public class ScheduleMatcher {
         // for each day, find the day in the current student's schedule
         for (int m = 0; m < days.size(); m++) {
 
-          HashMap<Integer, Boolean> studentDay = tempStudents.get(j).getSchedule().get(days.get(m));
-          int courseST = tempCourses.get(k).getStartTime();   // Course start time
-          int courseDuration = tempCourses.get(k).getEndTime() - courseST;  // Course duration
+          HashMap<LocalTime, Boolean> studentDay = tempStudents.get(j).getSchedule()
+              .get(days.get(m));
+          LocalTime courseST = tempCourses.get(k).getStartTime();   // Course start time
+          LocalTime courseET = tempCourses.get(k).getEndTime();   // Course end time
+
+          int courseHourDuration = courseET.getHour() - courseST.getHour();  // Course duration
+          int courseMinuteDuration = courseET.getMinute() - courseST.getMinute();
 
           // compare the course start and duration to the student's timeschedule for the day
           // grab the matching start time in the student day map
-          if (courseST == 0) {
+          if (courseST.equals(LocalTime.MIDNIGHT)) {
             web = true;
           }
           if (isAMatch && !web) {
-            isAMatch = studentDay.get(courseST);
-          }
 
-          // If course is over 1 hour, then need to check if student is available during those hours
-          if (isAMatch && courseDuration > 1) {
-            while (courseDuration > 1) {
-              isAMatch = studentDay.get(courseST + (courseDuration - 1));
-              courseDuration--;
+            // student availability for hour that course start time is in
+            LocalTime adjustedST = LocalTime.of(courseST.getHour(), 0);
+
+            // Check for entire duration of course
+            if (courseHourDuration > 0) {
+              while (courseHourDuration > 0 && isAMatch) {
+
+                LocalTime durationValidation = adjustedST.plusHours((long) courseHourDuration);
+                isAMatch = studentDay.get(durationValidation);
+                courseHourDuration--;
+              }
+            }
+            if (courseST.getHour() > 15 || courseST.getHour() < 8) {
+              isAMatch = false;
+            } else {
+              isAMatch = studentDay.get(courseST);
             }
           }
 

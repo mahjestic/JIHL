@@ -1,6 +1,8 @@
 package objects;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -18,8 +20,12 @@ public class Courses {
   private int seatsAvailable;
   private List<String> TAs;
   private List<String> days;
-  private int startTime;
-  private int endTime;
+//  private int startTime;
+//  private int endTime;
+
+  private LocalTime startTime;
+  private LocalTime endTime;
+
   private String facilityID;
   private String campus;
   private String professorLastFirst;
@@ -28,8 +34,8 @@ public class Courses {
   }
 
   public Courses(String sub, int code, String section, String title, String professor, String level,
-      int seatsAvailable, List<String> TAs, List<String> days, int startTime, int endTime,
-      String facilityID, String campus) {
+      int seatsAvailable, List<String> TAs, List<String> days, LocalTime startTime,
+      LocalTime endTime, String facilityID, String campus) {
     this.sub = sub;
     this.code = code;
     this.section = section;
@@ -54,7 +60,8 @@ public class Courses {
         + title +
         "\nProfessor: " + professorLastFirst + ", Campus: "
         + campus + ", Facility ID: " + facilityID +
-        "\n" + "Days: " + days + ", Start Time: " + startTime + ", End Time: " + endTime;
+        "\n" + "Days: " + days + ", Start Time: " + (Objects.nonNull(startTime) ? startTime
+        .toString() : "") + ", End Time: " + (Objects.nonNull(endTime) ? endTime.toString() : "");
   }
 
   /**
@@ -239,98 +246,75 @@ public class Courses {
    * @param column
    * @return the starting time of the course
    */
-  public int addStartTime(Courses course, String[] column) {
+  public LocalTime addStartTime(Courses course, String[] column) {
+    LocalTime sT = LocalTime.MIDNIGHT;
 
     String professor = course.addProfessor(course, column);
-    int startTime = 0;
+//    int startTime = 0;
 
     // If professor column is empty
     if (professor.equals("TBD")) {
       String time = column[6];
-      char c = time.charAt(0);
 
-      String s = time.substring(0, 2);
+      if (time.length() >= 3) {
+        String suffix = time.substring(time.length() - 2);
+        String[] temp = time.substring(0, time.length() - 2).split(":");
+        if (suffix.equals("PM")) {
+          if (temp[0].equals("12")) {
+            int t = Integer.parseInt(temp[0]) + 11;
+            temp[0] = Integer.toString(t);
 
-      if (c == ':') {
-        startTime = 0;
-      }
+          } else {
+            int t = Integer.parseInt(temp[0]) + 12;
+            temp[0] = Integer.toString(t);
 
-      switch (c) {
-        case '1':
-          startTime = 13;
-          break;
-        case '2':
-          startTime = 14;
-          break;
-        case '3':
-          startTime = 15;
-          break;
-        case '6':
-          startTime = 18;
-          break;
-        case '8':
-          startTime = 8;
-          break;
-        case '9':
-          startTime = 9;
-          break;
-      }
-      switch (s) {
-        case "10":
-          startTime = 10;
-          break;
-        case "11":
-          startTime = 11;
-          break;
-        case "12":
-          startTime = 12;
-          break;
+          }
+        }
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        }
       }
 
     } else { // If Professor column is not empty
-
       String time = column[7];
-      char c = time.charAt(0);
-      String s = time.substring(0, 2);
+      if (time.length() >= 3) {
+        String suffix = time.substring(time.length() - 2);
+        log.info(suffix);
+        String[] temp = time.substring(0, time.length() - 2).split(":");
+        List<String> a = Arrays.asList(temp);
+        log.info(a.toString());
+        if (suffix.equals("PM")) {
+          if (temp[0].equals("12")) {
+            int t = Integer.parseInt(temp[0]) + 11;
+            temp[0] = Integer.toString(t);
 
-      if (c == ':') {
-        startTime = 0;
+          } else {
+            int t = Integer.parseInt(temp[0]) + 12;
+            temp[0] = Integer.toString(t);
+
+          }
+        }
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        }
       }
 
-      switch (c) {
-        case '1':
-          startTime = 13;
-          break;
-        case '2':
-          startTime = 14;
-          break;
-        case '3':
-          startTime = 15;
-          break;
-        case '6':
-          startTime = 18;
-          break;
-        case '8':
-          startTime = 8;
-          break;
-        case '9':
-          startTime = 9;
-          break;
-      }
-      switch (s) {
-        case "10":
-          startTime = 10;
-          break;
-        case "11":
-          startTime = 11;
-          break;
-        case "12":
-          startTime = 12;
-          break;
-      }
     }
+    //log.info(sT.toString());
+    return course.startTime = sT;
 
-    return course.startTime = startTime;
   }
 
   /**
@@ -338,98 +322,72 @@ public class Courses {
    * @param column
    * @return the end time of the course
    */
-  public int addEndTime(Courses course, String[] column) {
+  public LocalTime addEndTime(Courses course, String[] column) {
 
     String professor = course.addProfessor(course, column);
-    int endTime = 0;
+    LocalTime eT = LocalTime.MIDNIGHT;
+//    int endTime = 0;
 
     // If professor column is empty
     if (professor.equals("TBD")) {
       String time = column[6];
-      char c = time.charAt(0);
+      if (time.length() >= 3) {
+        String suffix = time.substring(time.length() - 2);
+        String[] temp = time.substring(0, time.length() - 2).split(":");
+        if (suffix.equals("PM")) {
+          if (temp[0].equals("12")) {
+            int t = Integer.parseInt(temp[0]) + 11;
+            temp[0] = Integer.toString(t);
 
-      String s = time.substring(0, 2);
+          } else {
+            int t = Integer.parseInt(temp[0]) + 12;
+            temp[0] = Integer.toString(t);
 
-      if (c == ':') {
-        endTime = 0;
+          }
+        }
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        }
       }
 
-      switch (c) {
-        case '1':
-          endTime = 14;
-          break;
-        case '2':
-          endTime = 15;
-          break;
-        case '3':
-          endTime = 16;
-          break;
-        case '6':
-          endTime = 19;
-          break;
-        case '8':
-          endTime = 9;
-          break;
-        case '9':
-          endTime = 10;
-          break;
-      }
-      switch (s) {
-        case "10":
-          endTime = 11;
-          break;
-        case "11":
-          endTime = 12;
-          break;
-        case "12":
-          endTime = 13;
-          break;
-      }
 
     } else { // If Professor column is not empty
 
       String time = column[7];
-      char c = time.charAt(0);
-      String s = time.substring(0, 2);
+      if (time.length() >= 3) {
+        String suffix = time.substring(time.length() - 2);
+        String[] temp = time.substring(0, time.length() - 2).split(":");
+        if (suffix.equals("PM")) {
+          if (temp[0].equals("12")) {
+            int t = Integer.parseInt(temp[0]) + 11;
+            temp[0] = Integer.toString(t);
 
-      if (c == ':') {
-        endTime = 0;
-      }
+          } else {
+            int t = Integer.parseInt(temp[0]) + 12;
+            temp[0] = Integer.toString(t);
 
-      switch (c) {
-        case '1':
-          endTime = 14;
-          break;
-        case '2':
-          endTime = 15;
-          break;
-        case '3':
-          endTime = 16;
-          break;
-        case '6':
-          endTime = 19;
-          break;
-        case '8':
-          endTime = 9;
-          break;
-        case '9':
-          endTime = 10;
-          break;
-      }
-      switch (s) {
-        case "10":
-          endTime = 11;
-          break;
-        case "11":
-          endTime = 12;
-          break;
-        case "12":
-          endTime = 13;
-          break;
+          }
+        }
+        if (temp.length > 1) {
+          if (temp[0] == "") {
+            temp[0] = "0";
+          }
+          if (temp[1] == "") {
+            temp[1] = "0";
+          }
+          eT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
+        }
       }
     }
+    //log.info(eT.toString());
+    return course.endTime = eT;
 
-    return course.endTime = endTime;
   }
 
 
@@ -477,11 +435,11 @@ public class Courses {
     return days;
   }
 
-  public int getStartTime() {
+  public LocalTime getStartTime() {
     return startTime;
   }
 
-  public int getEndTime() {
+  public LocalTime getEndTime() {
     return endTime;
   }
 

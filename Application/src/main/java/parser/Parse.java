@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 import java.util.logging.Logger;
 import objects.Courses;
 import objects.Students;
@@ -13,54 +13,30 @@ import objects.Students;
 public class Parse {
 
   private final static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-  public static String studentCSV;
-  public static String scheduleCSV;
-
-  public Parse(String studentCSV, String scheduleCSV) {
-    this.studentCSV = studentCSV;
-    this.scheduleCSV = scheduleCSV;
-  }
 
   public Parse() {
   }
 
   ;
 
-  public Parse(String csvString, Boolean isStudentCSV) {
-    if (isStudentCSV) {
-      studentCSV = csvString;
-    } else {
-      scheduleCSV = csvString;
-    }
-  }
-
-  public void parseFiles() {
-    if (!studentCSV.equals("") && Objects.nonNull(studentCSV)) {
-      studentFileParser(studentCSV); // Run this for the student file
-
-    }
-    if (!scheduleCSV.equals("") && Objects.nonNull(scheduleCSV)) {
-      scheduleFileParser(scheduleCSV); // Run this for the schedule file
-    }
-  }
-
   // Schedule File Parser Method
-  public Courses scheduleFileParser(String file) {
+  public List<Courses> scheduleFileParser(String file) {
     BufferedReader lineRead = null;
-
-    String input = "";
-
-    Courses data = new Courses();
-
     try {
+
+      String input = "";
 
       lineRead = new BufferedReader(new FileReader(file));
       lineRead.readLine();//first line
+      ArrayList<Courses> coursesData = new ArrayList<Courses>();
 
       while ((input = lineRead.readLine()) != null) {
         String[] column = input.split(",");
+        Courses data = new Courses();
 
-        System.out.println(input);
+        System.out.println("Parse.java: scheduleFileReader: " + input);
+        //List<String> t = Arrays.asList(column);
+        //System.out.println(t.toString());
         // --Sub--
         data.addSub(data, column);
 
@@ -94,12 +70,13 @@ public class Parse {
         // -- End Time --
         data.addEndTime(data, column);
 
-        ArrayList<Courses> coursesData = new ArrayList<Courses>();
-
         coursesData.add(data); //Adds Schedule data to courseData arrayList
-        //***** log.info(coursesData.toString());   // Logs info when method is called
+        //log.info(coursesData.toString());   // Logs info when method is called
 
       }
+
+      log.info("Parse.java: scheduleFileReader: " + coursesData.toString());
+      return coursesData;
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
@@ -116,22 +93,23 @@ public class Parse {
         }
       }
     }
-    return data;
+    return null;
   }
 
   //Student File Parser Method
-  public Students studentFileParser(String file) {
+  public List<Students> studentFileParser(String file) {
     BufferedReader lineRead = null;
 
-    String input = "";
-
-    Students data = new Students();
-
     try {
+
+      String input = "";
+
+      Students data = new Students();
 
       lineRead = new BufferedReader(new FileReader(file));
       lineRead.readLine(); // Skip first line
       lineRead.readLine(); // Skip second line
+      ArrayList<Students> studentData = new ArrayList<Students>();
 
       while ((input = lineRead.readLine()) != null) {
 
@@ -168,11 +146,14 @@ public class Parse {
 
         // -- objects.Courses Taken --
         data.addCoursesTaken(data, column);
-        ArrayList<Students> studentData = new ArrayList<Students>();
 
+        //log.info(data.toString());
         studentData.add(data); // Adds student data to studentData ArrayList
-        //***** log.info(studentData.toString());   // Logs info when method is called
+        //****** log.info(studentData.toString());   // Logs info when method is called
       }
+
+      return studentData;
+
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -187,8 +168,9 @@ public class Parse {
           e.printStackTrace();
         }
       }
+
     }
-    return data;
+    return null;
   }
 }
 
