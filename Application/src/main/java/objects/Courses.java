@@ -187,12 +187,9 @@ public class Courses {
 
 
   /**
-   * Abbreviation Explanation:
-   *    TBD = To be determind 
-   *    WEB = Online class
-   *    EBURG = On campus
-   *    A = Asynchronous 
-   *  
+   * Abbreviation Explanation: TBD = To be determind WEB = Online class EBURG = On campus A =
+   * Asynchronous
+   *
    * @param course
    * @param column
    * @return adds the days the course will take place
@@ -210,13 +207,9 @@ public class Courses {
 
       if (daysCol == "" && campus.equals("WEB")) {
         days.add("A");
-      } 
-
-      else if (daysCol == "" && campus.equals("EBURG")) {
+      } else if (daysCol == "" && campus.equals("EBURG")) {
         days.add("TBD");
-      } 
-
-      else {
+      } else {
         String str = daysCol.trim();
         String[] day = str.split(" ");
 
@@ -248,12 +241,10 @@ public class Courses {
     return course.days = days;
   }
 
- /**
-   * Time explanation:
-   *    0 = Asynchronous (no time stated)
-   *    8-11 = Regular AM schedule
-   *    12-18 = Military time PM schedule (e.g. 14 = 2PM)
-   * 
+  /**
+   * Time explanation: 0 = Asynchronous (no time stated) 8-11 = Regular AM schedule 12-18 = Military
+   * time PM schedule (e.g. 14 = 2PM)
+   *
    * @param course
    * @param column
    * @return the starting time of the course
@@ -292,8 +283,8 @@ public class Courses {
           sT = LocalTime.of(Integer.parseInt(temp[0]), Integer.parseInt(temp[1]));
         }
       }
-    // -- If Professor column is not empty --
-    } else { 
+      // -- If Professor column is not empty --
+    } else {
       String time = column[7];
       if (time.length() >= 3) {
         String suffix = time.substring(time.length() - 2);
@@ -342,7 +333,7 @@ public class Courses {
 
     // -- If professor column is empty --
     if (professor.equals("TBD")) {
-      String time = column[6];
+      String time = column[7];
       if (time.length() >= 3) {
         String suffix = time.substring(time.length() - 2);
         String[] temp = time.substring(0, time.length() - 2).split(":");
@@ -368,10 +359,10 @@ public class Courses {
         }
       }
 
-    // -- If Professor column is not empty --
-    } else { 
+      // -- If Professor column is not empty --
+    } else {
 
-      String time = column[7];
+      String time = column[8];
       if (time.length() >= 3) {
         String suffix = time.substring(time.length() - 2);
         String[] temp = time.substring(0, time.length() - 2).split(":");
@@ -403,42 +394,42 @@ public class Courses {
   }
 
   /**
-   * @return the sub of the course 
+   * @return the sub of the course
    */
   public String getSub() {
     return sub;
   }
 
   /**
-   * @return the code of the course 
+   * @return the code of the course
    */
   public int getCode() {
     return code;
   }
 
   /**
-   * @return the section of the course 
+   * @return the section of the course
    */
   public String getSection() {
     return section;
   }
 
   /**
-   * @return the title of the course 
+   * @return the title of the course
    */
   public String getTitle() {
     return title;
   }
 
   /**
-   * @return the professor of the course 
+   * @return the professor of the course
    */
   public String getProfessor() {
     return professor;
   }
 
   /**
-   * @return the professor's last and first name of the course 
+   * @return the professor's last and first name of the course
    */
   public String getProfessorLastFirst() {
     if (Objects.isNull(professorLastFirst)) {
@@ -449,55 +440,55 @@ public class Courses {
   }
 
   /**
-  * @return the level of the course 
-  */
+   * @return the level of the course
+   */
   public String getLevel() {
     return level;
   }
 
   /**
-   * @return the seats available in the course 
+   * @return the seats available in the course
    */
   public int getSeatsAvailable() {
     return seatsAvailable;
   }
 
   /**
-   * @return the TA's of the course 
+   * @return the TA's of the course
    */
   public List<String> getTAs() {
     return TAs;
   }
 
   /**
-   * @return the schedule of the course 
+   * @return the schedule of the course
    */
   public List<String> getDays() {
     return days;
   }
 
   /**
-   * @return the start time of the course 
+   * @return the start time of the course
    */
   public LocalTime getStartTime() {
     return startTime;
   }
 
   /**
-   * @return the end time of the course 
+   * @return the end time of the course
    */
   public LocalTime getEndTime() {
     return endTime;
   }
 
-   /**
-   * @return the facility ID of the course 
+  /**
+   * @return the facility ID of the course
    */
   public String getFacilityID() {
     return facilityID;
   }
 
-   /**
+  /**
    * @return the location of the course (online or on campus)
    */
   public String getCampus() {
