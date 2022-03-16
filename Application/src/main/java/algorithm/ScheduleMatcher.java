@@ -25,7 +25,27 @@ public class ScheduleMatcher {
     this.numStud = students.size();
     this.numCourses = courses.size();
   }
+  public ScheduleMatcher(){
 
+  }
+
+  public HashMap<Students, Courses> assignedTAs(HashMap<Integer,Integer> mappedResults){
+    HashMap<Students,Courses> matchedTAs = new HashMap<>();
+    for(HashMap.Entry<Integer,Integer> results : mappedResults.entrySet()){
+      
+      Students student = students.get(results.getKey());
+      
+      if(results.getValue() == -1){
+        Courses course = null;
+        matchedTAs.put(student, course);
+      }else{
+        Courses course = courses.get(results.getValue());
+        matchedTAs.put(student, course);
+      }
+    }
+
+    return matchedTAs;
+  }
 
   // A DFS based recursive function that returns true if a matching
   // for vertex u is possible
@@ -119,7 +139,6 @@ public class ScheduleMatcher {
     return mappedResults;
   }
 
-
   public Boolean[][] createBPGraph() {
     List<Students> tempStudents = students;
     List<Courses> tempCourses = courses;
@@ -168,14 +187,14 @@ public class ScheduleMatcher {
             LocalTime adjustedST = LocalTime.of(courseST.getHour(), 0);
 
             // Check for entire duration of course
-            if (courseHourDuration > 0) {
-              while (courseHourDuration > 0 && isAMatch) {
+            // if (courseHourDuration > 0) {
+            //   while (courseHourDuration > 0 && isAMatch) {
 
-                LocalTime durationValidation = adjustedST.plusHours((long) courseHourDuration);
-                isAMatch = studentDay.get(durationValidation);
-                courseHourDuration--;
-              }
-            }
+            //     LocalTime durationValidation = adjustedST.plusHours((long) courseHourDuration);
+            //     isAMatch = studentDay.get(durationValidation);
+            //     courseHourDuration--;
+            //   }
+            // }
             if (courseST.getHour() > 15 || courseST.getHour() < 8) {
               isAMatch = false;
             } else {

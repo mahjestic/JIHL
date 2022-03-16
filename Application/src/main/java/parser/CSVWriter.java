@@ -1,13 +1,16 @@
 package parser;
 import objects.Courses;
 import objects.Students;
+import algorithm.ScheduleMatcher;
 import java.time.LocalTime;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.io.IOException;
+import java.net.SecureCacheResponse;
 import java.io.*;
 
 public class CSVWriter {
@@ -23,18 +26,28 @@ public class CSVWriter {
     private static LocalTime endTime;
     private static String facilityID;
     private static String campus; 
-
-    private static List<String> TAs;
+    private static String TAs;
     private static int studentID;
     private static String studentEmail;
 
     private static Parse parser = new Parse();
-
     public CSVWriter() {
     }
-    
-    public void createCSVFile(String scheduleCSV) throws IOException {
+    public static void main(String[] args) throws IOException {
+        String scheduleCSV = "/Users/lenale/Desktop/cs480/schedule.csv";
+        String studentCSV = "/Users/lenale/Desktop/cs480/students.csv";
+        createCSVFile(scheduleCSV,studentCSV);
+    }
+
+    public static void createCSVFile(String studentCSV, String scheduleCSV) throws IOException {
         List<Courses> courses = parser.scheduleFileParser(scheduleCSV);
+        List<Students> students = parser.studentFileParser(studentCSV);
+      
+        ScheduleMatcher matchMachine = new ScheduleMatcher(students, courses);
+        HashMap<Integer, Integer> results = matchMachine.hallsAlgorithm();
+ 
+        HashMap<Students,Courses> assignedTAs = matchMachine.assignedTAs(results);
+
 
         try (
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(outputCSV));
@@ -43,23 +56,31 @@ public class CSVWriter {
             .withHeader("Sub", "Cat", "Sec","Title", "Professor","Days","Start Time","End Time","Facility ID","Campus","TAs", "Student ID","Student Email"));
             ){
                 
+                for (Courses course : courses) {
+                    sub = course.getSub();
+                    code = course.getCode();
+                    section = course.getSection();
+                    title = course.getTitle();
+                    professor = course.getProfessor();
+                    days = course.getDays();
+                    startTime = course.getStartTime();
+                    endTime = course.getEndTime();
+                    facilityID = course.getFacilityID();
+                    campus = course.getCampus();
+                    //HELPS
+                    for(Students student : students){
+                        // System.out.println(student.getFirstName()+ " "+ assignedTAs.get(student).getTitle());
+                        if(course == assignedTAs.get(student)){
+                            TAs = student.getFirstName() + " " + student.getLastName();
+                        }else if (assignedTAs.get(student) == null){
+                            TAs = "NO TA";
+                        }
 
-                for (int i = 0; i < courses.size(); i++) {
-                    sub = courses.get(i).getSub();
-                    code = courses.get(i).getCode();
-                    section = courses.get(i).getSection();
-                    title = courses.get(i).getTitle();
-                    professor = courses.get(i).getProfessor();
-                    days = courses.get(i).getDays();
-                    startTime = courses.get(i).getStartTime();
-                    endTime = courses.get(i).getEndTime();
-                    facilityID = courses.get(i).getFacilityID();
-                    campus = courses.get(i).getCampus();
-                    TAs = courses.get(i).getTAs();
+                    }
 
-                    csvPrinter.printRecord(sub,code,section,title,professor,days,startTime,endTime,facilityID,campus);
+                    csvPrinter.printRecord(sub,code,section,title,professor,days,startTime,endTime,facilityID,campus,TAs);
                 }
-
+ 
                 csvPrinter.flush();            
             }
     }
